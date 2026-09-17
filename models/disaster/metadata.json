@@ -1,0 +1,53 @@
+{
+  "artifact": "disaster_prediction_pipeline.pkl",
+  "kind": "scaled_xgb_classifier_bundle",
+  "task": "multiclass_classification",
+  "xgboost_serialization_version": "3.4.1",
+  "sklearn_version": "1.6.1",
+  "features": [
+    "temp_2m",
+    "precip_1h",
+    "rain_24h",
+    "rain_48h",
+    "wind_speed_10m",
+    "wind_gusts_10m",
+    "surface_pressure",
+    "weather_code",
+    "us_aqi",
+    "pm2_5",
+    "river_discharge",
+    "elevation",
+    "max_quake_mag",
+    "quake_depth",
+    "tsunami_flag",
+    "gdacs_cyclone",
+    "gdacs_volcano",
+    "wind_pressure_shear",
+    "precipitation_saturation_rate",
+    "thermal_particulate_index"
+  ],
+  "classes": [
+    "air_pollution",
+    "cold_wave",
+    "cyclone",
+    "drought",
+    "earthquake",
+    "extreme_temperature",
+    "flood",
+    "heat_wave",
+    "heavy_rainfall",
+    "high_pressure",
+    "landslide",
+    "low_pressure",
+    "nominal",
+    "storm_surge",
+    "strong_winds",
+    "thunderstorm",
+    "tsunami",
+    "volcano"
+  ],
+  "notes": [
+    "Bundle contains model + RobustScaler + LabelEncoder + feature_order.",
+    "Feature order below was recovered from the saved artifact."
+  ]
+}

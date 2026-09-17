@@ -1,0 +1,320 @@
+{
+  "format_version": 1,
+  "bundle_type": "WeatherGPT portable XGBoost bundle",
+  "xgboost_version": "3.4.1",
+  "models": {
+    "temperature_2m": {
+      "file": "models/temperature_2m.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "relative_humidity_2m": {
+      "file": "models/relative_humidity_2m.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "dew_point_2m": {
+      "file": "models/dew_point_2m.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "apparent_temperature": {
+      "file": "models/apparent_temperature.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "precipitation": {
+      "file": "models/precipitation.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "rain": {
+      "file": "models/rain.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "surface_pressure": {
+      "file": "models/surface_pressure.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "et0_fao_evapotranspiration": {
+      "file": "models/et0_fao_evapotranspiration.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "vapour_pressure_deficit": {
+      "file": "models/vapour_pressure_deficit.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "wind_speed_10m": {
+      "file": "models/wind_speed_10m.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "wind_gusts_10m": {
+      "file": "models/wind_gusts_10m.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "soil_temperature_0_to_7cm": {
+      "file": "models/soil_temperature_0_to_7cm.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "soil_moisture_0_to_7cm": {
+      "file": "models/soil_moisture_0_to_7cm.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "shortwave_radiation": {
+      "file": "models/shortwave_radiation.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "direct_normal_irradiance": {
+      "file": "models/direct_normal_irradiance.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "diffuse_radiation": {
+      "file": "models/diffuse_radiation.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "cloud_cover": {
+      "file": "models/cloud_cover.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "wind_direction_sin": {
+      "file": "models/wind_direction_sin.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    },
+    "wind_direction_cos": {
+      "file": "models/wind_direction_cos.json",
+      "class_name": "XGBRegressor",
+      "module": "xgboost.sklearn"
+    }
+  },
+  "feature_columns": [
+    "temperature_2m",
+    "relative_humidity_2m",
+    "dew_point_2m",
+    "apparent_temperature",
+    "precipitation",
+    "rain",
+    "surface_pressure",
+    "et0_fao_evapotranspiration",
+    "vapour_pressure_deficit",
+    "wind_speed_10m",
+    "wind_gusts_10m",
+    "soil_temperature_0_to_7cm",
+    "soil_moisture_0_to_7cm",
+    "shortwave_radiation",
+    "direct_normal_irradiance",
+    "diffuse_radiation",
+    "cloud_cover",
+    "latitude",
+    "longitude",
+    "wind_u_vector",
+    "wind_v_vector",
+    "wet_bulb_temp",
+    "sin_hour",
+    "cos_hour",
+    "sin_day",
+    "cos_day",
+    "pressure_tendency_3h",
+    "temp_lag_1",
+    "humidity_lag_1",
+    "radiation_lag_1",
+    "temp_lag_2",
+    "humidity_lag_2",
+    "radiation_lag_2",
+    "temp_lag_3",
+    "humidity_lag_3",
+    "radiation_lag_3",
+    "temp_lag_24",
+    "humidity_lag_24",
+    "radiation_lag_24"
+  ],
+  "target_columns": [
+    "temperature_2m",
+    "relative_humidity_2m",
+    "dew_point_2m",
+    "apparent_temperature",
+    "precipitation",
+    "rain",
+    "surface_pressure",
+    "et0_fao_evapotranspiration",
+    "vapour_pressure_deficit",
+    "wind_speed_10m",
+    "wind_direction_10m",
+    "wind_gusts_10m",
+    "soil_temperature_0_to_7cm",
+    "soil_moisture_0_to_7cm",
+    "shortwave_radiation",
+    "direct_normal_irradiance",
+    "diffuse_radiation",
+    "cloud_cover"
+  ],
+  "target_transforms": {
+    "temperature_2m": {
+      "name": "identity",
+      "skew": -0.62647419948685
+    },
+    "relative_humidity_2m": {
+      "name": "identity",
+      "skew": -0.6656796446182699
+    },
+    "dew_point_2m": {
+      "name": "identity",
+      "skew": -0.7194322287897755
+    },
+    "apparent_temperature": {
+      "name": "identity",
+      "skew": -0.7464911937128431
+    },
+    "precipitation": {
+      "name": "log1p",
+      "skew": 10.508912482851814
+    },
+    "rain": {
+      "name": "log1p",
+      "skew": 10.593413977028236
+    },
+    "surface_pressure": {
+      "name": "identity",
+      "skew": -1.1064363806977755
+    },
+    "et0_fao_evapotranspiration": {
+      "name": "identity",
+      "skew": 1.2036802011055427
+    },
+    "vapour_pressure_deficit": {
+      "name": "log1p",
+      "skew": 2.1117176565206655
+    },
+    "wind_speed_10m": {
+      "name": "identity",
+      "skew": 1.1044161173727396
+    },
+    "wind_gusts_10m": {
+      "name": "identity",
+      "skew": 0.9283958090060029
+    },
+    "soil_temperature_0_to_7cm": {
+      "name": "identity",
+      "skew": -0.41509573003304406
+    },
+    "soil_moisture_0_to_7cm": {
+      "name": "identity",
+      "skew": 0.018440024797553717
+    },
+    "shortwave_radiation": {
+      "name": "identity",
+      "skew": 1.0497689345906738
+    },
+    "direct_normal_irradiance": {
+      "name": "identity",
+      "skew": 1.0230183051942916
+    },
+    "diffuse_radiation": {
+      "name": "identity",
+      "skew": 1.0970609710030443
+    },
+    "cloud_cover": {
+      "name": "identity",
+      "skew": 0.14994144211457283
+    },
+    "wind_direction_sin": {
+      "name": "identity",
+      "skew": 0.21326602358258595
+    },
+    "wind_direction_cos": {
+      "name": "identity",
+      "skew": -0.0016585760347872772
+    }
+  },
+  "model_keys": [
+    "temperature_2m",
+    "relative_humidity_2m",
+    "dew_point_2m",
+    "apparent_temperature",
+    "precipitation",
+    "rain",
+    "surface_pressure",
+    "et0_fao_evapotranspiration",
+    "vapour_pressure_deficit",
+    "wind_speed_10m",
+    "wind_gusts_10m",
+    "soil_temperature_0_to_7cm",
+    "soil_moisture_0_to_7cm",
+    "shortwave_radiation",
+    "direct_normal_irradiance",
+    "diffuse_radiation",
+    "cloud_cover",
+    "wind_direction_sin",
+    "wind_direction_cos"
+  ],
+  "direct_targets": [
+    "temperature_2m",
+    "relative_humidity_2m",
+    "dew_point_2m",
+    "apparent_temperature",
+    "precipitation",
+    "rain",
+    "surface_pressure",
+    "et0_fao_evapotranspiration",
+    "vapour_pressure_deficit",
+    "wind_speed_10m",
+    "wind_gusts_10m",
+    "soil_temperature_0_to_7cm",
+    "soil_moisture_0_to_7cm",
+    "shortwave_radiation",
+    "direct_normal_irradiance",
+    "diffuse_radiation",
+    "cloud_cover"
+  ],
+  "preprocessor": {
+    "core_lags": [
+      1,
+      2,
+      3,
+      24
+    ],
+    "use_extended_features": false,
+    "extended_lags": [
+      6,
+      12
+    ],
+    "weather_variables": [
+      "temperature_2m",
+      "relative_humidity_2m",
+      "dew_point_2m",
+      "apparent_temperature",
+      "precipitation",
+      "rain",
+      "surface_pressure",
+      "et0_fao_evapotranspiration",
+      "vapour_pressure_deficit",
+      "wind_speed_10m",
+      "wind_direction_10m",
+      "wind_gusts_10m",
+      "soil_temperature_0_to_7cm",
+      "soil_moisture_0_to_7cm",
+      "shortwave_radiation",
+      "direct_normal_irradiance",
+      "diffuse_radiation",
+      "cloud_cover"
+    ],
+    "wind_direction_strategy": "sin_cos",
+    "time_encoding": "hour_and_dayofyear_sin_cos",
+    "missing_value_strategy": "stationwise_forward_fill_then_drop_leading_missing",
+    "training_start_date": "2024-01-01",
+    "training_end_date": "2026-09-09",
+    "main_forecast_mode": "live_current_hour"
+  }
+}

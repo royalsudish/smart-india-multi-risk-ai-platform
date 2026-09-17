@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Multi-Risk AI Platform</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Smart Multi-Risk AI Platform</h1>
+    <p>Weather • Agriculture • Waterlogging • Disaster Management</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Model Status</h2>
+      <button id="reloadBtn">Reload Models</button>
+      <div id="statusGrid" class="grid"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Run All Models</h2>
+
+      <div class="form-grid">
+        <label>
+          Latitude
+          <input id="lat" type="number" step="any" value="16.3067">
+        </label>
+
+        <label>
+          Longitude
+          <input id="lon" type="number" step="any" value="80.4365">
+        </label>
+
+        <label class="checkbox-row">
+          <input id="autoWeather" type="checkbox">
+          Fetch live weather automatically
+        </label>
+      </div>
+
+      <p class="hint">
+        Enter JSON features below. Use the exact training feature names from each model's metadata.json.
+      </p>
+
+      <div class="editors">
+        <div>
+          <h3>Weather features</h3>
+          <textarea id="weather">{}</textarea>
+        </div>
+        <div>
+          <h3>Agriculture features</h3>
+          <textarea id="agriculture">{
+  "soil_moisture": 55,
+  "ndvi": 0.55,
+  "soil_ph": 6.8
+}</textarea>
+        </div>
+        <div>
+          <h3>Waterlogging features</h3>
+          <textarea id="waterlogging">{
+  "elevation_m": 35,
+  "slope_deg": 1.5,
+  "land_use_code": 2,
+  "distance_to_drain_m": 140,
+  "drainage_density": 0.8
+}</textarea>
+        </div>
+        <div>
+          <h3>Disaster features</h3>
+          <textarea id="disaster">{
+  "population_density": 1100,
+  "vulnerability_index": 0.62
+}</textarea>
+        </div>
+      </div>
+
+      <button id="predictBtn" class="primary">Predict All</button>
+    </section>
+
+    <section class="panel">
+      <h2>Result</h2>
+      <pre id="result">Run a prediction to see output.</pre>
+    </section>
+  </main>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
