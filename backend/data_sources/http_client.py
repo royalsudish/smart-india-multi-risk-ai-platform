@@ -1,5 +1,13 @@
+import socket
 import requests
+import urllib3.util.connection as urllib3_conn
 from backend.config.settings import APP_USER_AGENT, REQUEST_TIMEOUT_SECONDS
+
+# Force IPv4 resolution to prevent dual-stack IPv6 TLS handshake timeouts on systems with unrouted IPv6
+def _allowed_gai_family():
+    return socket.AF_INET
+
+urllib3_conn.allowed_gai_family = _allowed_gai_family
 
 def session():
     s = requests.Session()

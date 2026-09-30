@@ -1,0 +1,562 @@
+[
+  {
+    "city": "Guntur",
+    "coords": "(16.3067, 80.4365)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "drought",
+      "air_pollution"
+    ],
+    "raw_ml_signal": "drought",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 3.66
+  },
+  {
+    "city": "Patna",
+    "coords": "(25.5941, 85.1376)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "air_pollution"
+    ],
+    "raw_ml_signal": "earthquake",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 2.49
+  },
+  {
+    "city": "Delhi",
+    "coords": "(28.6139, 77.209)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "flood",
+      "drought",
+      "air_pollution"
+    ],
+    "raw_ml_signal": "earthquake",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 2.03
+  },
+  {
+    "city": "Mumbai",
+    "coords": "(19.076, 72.8777)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "drought",
+      "air_pollution"
+    ],
+    "raw_ml_signal": "nominal",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 1.86
+  },
+  {
+    "city": "Chennai",
+    "coords": "(13.0827, 80.2707)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "drought",
+      "air_pollution"
+    ],
+    "raw_ml_signal": "drought",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 10.56
+  },
+  {
+    "city": "Kochi",
+    "coords": "(9.9312, 76.2673)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "drought"
+    ],
+    "raw_ml_signal": "nominal",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 5.42
+  },
+  {
+    "city": "Hyderabad",
+    "coords": "(17.385, 78.4867)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "heat_wave",
+      "drought",
+      "air_pollution"
+    ],
+    "raw_ml_signal": "low_pressure",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 4.72
+  },
+  {
+    "city": "Guwahati",
+    "coords": "(26.1445, 91.7362)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "drought"
+    ],
+    "raw_ml_signal": "earthquake",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 4.83
+  },
+  {
+    "city": "Dehradun",
+    "coords": "(30.3165, 78.0322)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "air_pollution"
+    ],
+    "raw_ml_signal": "earthquake",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 7.56
+  },
+  {
+    "city": "Srinagar",
+    "coords": "(34.0837, 74.7973)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "flood"
+    ],
+    "raw_ml_signal": "earthquake",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 8.17
+  },
+  {
+    "city": "Jaipur",
+    "coords": "(26.9124, 75.7873)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "drought"
+    ],
+    "raw_ml_signal": "low_pressure",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 4.44
+  },
+  {
+    "city": "Visakhapatnam",
+    "coords": "(17.6868, 83.2185)",
+    "weather": "OK",
+    "waterlogging": "OK",
+    "drainage": "OK (6-feat: True)",
+    "agriculture": "OK (35-feat: True)",
+    "disaster": "OK",
+    "verified_hazards": [
+      "flood",
+      "air_pollution"
+    ],
+    "raw_ml_signal": "air_pollution",
+    "data_quality": {
+      "fallback_sources": [],
+      "missing_providers": [
+        "NASA_FIRMS"
+      ],
+      "missing_sources": [
+        "NASA_FIRMS"
+      ],
+      "overall_quality": "FULL_DATA",
+      "provider_status": {
+        "air_quality": "PRECOMPUTED",
+        "dem": {
+          "status": "available"
+        },
+        "earthquake": "PRECOMPUTED",
+        "elevation_dem": "PRECOMPUTED",
+        "firms": "unavailable",
+        "flood": "PRECOMPUTED",
+        "gdacs": {
+          "status": "available"
+        },
+        "gdacs_feed": "PRECOMPUTED",
+        "glofas_flood": "PRECOMPUTED",
+        "official_india_evidence": "AVAILABLE",
+        "open_meteo_air_quality": "PRECOMPUTED",
+        "open_meteo_weather": "PRECOMPUTED",
+        "usgs_earthquake": "PRECOMPUTED",
+        "weather": "PRECOMPUTED"
+      },
+      "status": "PARTIAL_DATA"
+    },
+    "active_alerts": null,
+    "duration_s": 5.61
+  }
+]

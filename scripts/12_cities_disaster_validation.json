@@ -1,0 +1,456 @@
+{
+  "Patna": {
+    "city": "Patna",
+    "state": "Bihar",
+    "coordinates": [
+      25.5941,
+      85.1376
+    ],
+    "verified_hazards": [],
+    "operational_alert": "No Active Disaster Threat",
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.4621
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Guntur": {
+    "city": "Guntur",
+    "state": "Andhra Pradesh",
+    "coordinates": [
+      16.3067,
+      80.4365
+    ],
+    "verified_hazards": [
+      {
+        "hazard": "air_pollution",
+        "active": true,
+        "severity": "MODERATE",
+        "confidence_type": "evidence_based",
+        "sources": [
+          "Open-Meteo Atmospheric Chemistry / CPCB Criteria"
+        ],
+        "reason": "Unhealthy air quality for sensitive groups: AQI 124, PM2.5 72.6 \u00b5g/m\u00b3.",
+        "evidence": {
+          "us_aqi": 124.0,
+          "pm2_5_ugm3": 72.6
+        },
+        "source": [
+          "Open-Meteo Atmospheric Chemistry / CPCB Criteria"
+        ]
+      }
+    ],
+    "operational_alert": "Air Pollution MODERATE",
+    "raw_model": {
+      "prediction": "drought",
+      "confidence": 0.2415
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Delhi": {
+    "city": "Delhi",
+    "state": "Delhi",
+    "coordinates": [
+      28.6139,
+      77.209
+    ],
+    "verified_hazards": [
+      {
+        "hazard": "flood",
+        "active": true,
+        "severity": "CRITICAL",
+        "confidence_type": "evidence_based",
+        "sources": [
+          "Open-Meteo Flood (GloFAS v4)",
+          "Hydrological Telemetry"
+        ],
+        "source": [
+          "Open-Meteo Flood (GloFAS v4)",
+          "Hydrological Telemetry"
+        ],
+        "reason": "Active flood hazard corroborated by high river discharge (495.6 m\u00b3/s, trend: RISING).",
+        "evidence": {
+          "river_discharge_m3s": 495.59,
+          "peak_discharge_7d_m3s": 634.33,
+          "discharge_trend": "RISING",
+          "rain_24h_mm": 0.0,
+          "rain_48h_mm": 0.8,
+          "rain_3d_mm": 0.8,
+          "rain_7d_mm": 6.0,
+          "forecast_rain_24h_mm": 0.0,
+          "waterlogging_probability": 0.0,
+          "drainage_congestion_probability": 0.0,
+          "sentinel1_water_change_detected": false,
+          "official_cwc_alert_count": 0
+        }
+      },
+      {
+        "hazard": "air_pollution",
+        "active": true,
+        "severity": "MODERATE",
+        "confidence_type": "evidence_based",
+        "sources": [
+          "Open-Meteo Atmospheric Chemistry / CPCB Criteria"
+        ],
+        "reason": "Unhealthy air quality for sensitive groups: AQI 151, PM2.5 84.3 \u00b5g/m\u00b3.",
+        "evidence": {
+          "us_aqi": 151.0,
+          "pm2_5_ugm3": 84.3
+        },
+        "source": [
+          "Open-Meteo Atmospheric Chemistry / CPCB Criteria"
+        ]
+      }
+    ],
+    "operational_alert": "Flood CRITICAL \u00b7 Air Pollution MODERATE",
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.4091
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Mumbai": {
+    "city": "Mumbai",
+    "state": "Maharashtra",
+    "coordinates": [
+      19.076,
+      72.8777
+    ],
+    "verified_hazards": [],
+    "operational_alert": "No Active Disaster Threat",
+    "raw_model": {
+      "prediction": "nominal",
+      "confidence": 0.9961
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Chennai": {
+    "city": "Chennai",
+    "state": "Tamil Nadu",
+    "coordinates": [
+      13.0827,
+      80.2707
+    ],
+    "verified_hazards": [
+      {
+        "hazard": "air_pollution",
+        "active": true,
+        "severity": "MODERATE",
+        "confidence_type": "evidence_based",
+        "sources": [
+          "Open-Meteo Atmospheric Chemistry / CPCB Criteria"
+        ],
+        "reason": "Unhealthy air quality for sensitive groups: AQI 140, PM2.5 22.9 \u00b5g/m\u00b3.",
+        "evidence": {
+          "us_aqi": 140.0,
+          "pm2_5_ugm3": 22.9
+        },
+        "source": [
+          "Open-Meteo Atmospheric Chemistry / CPCB Criteria"
+        ]
+      }
+    ],
+    "operational_alert": "Air Pollution MODERATE",
+    "raw_model": {
+      "prediction": "nominal",
+      "confidence": 0.9961
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Kochi": {
+    "city": "Kochi",
+    "state": "Kerala",
+    "coordinates": [
+      9.9312,
+      76.2673
+    ],
+    "verified_hazards": [],
+    "operational_alert": "No Active Disaster Threat",
+    "raw_model": {
+      "prediction": "nominal",
+      "confidence": 0.9768
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Guwahati": {
+    "city": "Guwahati",
+    "state": "Assam",
+    "coordinates": [
+      26.1445,
+      91.7362
+    ],
+    "verified_hazards": [],
+    "operational_alert": "No Active Disaster Threat",
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.9912
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Hyderabad": {
+    "city": "Hyderabad",
+    "state": "Telangana",
+    "coordinates": [
+      17.385,
+      78.4867
+    ],
+    "verified_hazards": [],
+    "operational_alert": "No Active Disaster Threat",
+    "raw_model": {
+      "prediction": "low_pressure",
+      "confidence": 0.2494
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Jaipur": {
+    "city": "Jaipur",
+    "state": "Rajasthan",
+    "coordinates": [
+      26.9124,
+      75.7873
+    ],
+    "verified_hazards": [],
+    "operational_alert": "No Active Disaster Threat",
+    "raw_model": {
+      "prediction": "drought",
+      "confidence": 0.2615
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Srinagar": {
+    "city": "Srinagar",
+    "state": "Jammu and Kashmir",
+    "coordinates": [
+      34.0837,
+      74.7973
+    ],
+    "verified_hazards": [
+      {
+        "hazard": "flood",
+        "active": true,
+        "severity": "HIGH",
+        "confidence_type": "evidence_based",
+        "sources": [
+          "Open-Meteo Flood (GloFAS v4)",
+          "Hydrological Telemetry"
+        ],
+        "source": [
+          "Open-Meteo Flood (GloFAS v4)",
+          "Hydrological Telemetry"
+        ],
+        "reason": "Active flood hazard corroborated by high river discharge (190.9 m\u00b3/s, trend: FALLING).",
+        "evidence": {
+          "river_discharge_m3s": 190.87,
+          "peak_discharge_7d_m3s": 217.27,
+          "discharge_trend": "FALLING",
+          "rain_24h_mm": 0.0,
+          "rain_48h_mm": 0.0,
+          "rain_3d_mm": 0.0,
+          "rain_7d_mm": 0.1,
+          "forecast_rain_24h_mm": 0.0,
+          "waterlogging_probability": 0.0,
+          "drainage_congestion_probability": 0.0,
+          "sentinel1_water_change_detected": false,
+          "official_cwc_alert_count": 0
+        }
+      }
+    ],
+    "operational_alert": "Flood HIGH",
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.9982
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Dehradun": {
+    "city": "Dehradun",
+    "state": "Uttarakhand",
+    "coordinates": [
+      30.3165,
+      78.0322
+    ],
+    "verified_hazards": [
+      {
+        "hazard": "flood",
+        "active": true,
+        "severity": "MODERATE",
+        "confidence_type": "evidence_based",
+        "sources": [
+          "Open-Meteo Flood (GloFAS v4)",
+          "Hydrological Telemetry"
+        ],
+        "source": [
+          "Open-Meteo Flood (GloFAS v4)",
+          "Hydrological Telemetry"
+        ],
+        "reason": "Elevated flood risk supported by hydrological indicators.",
+        "evidence": {
+          "river_discharge_m3s": 4.7,
+          "peak_discharge_7d_m3s": 12.34,
+          "discharge_trend": "FALLING",
+          "rain_24h_mm": 0.1,
+          "rain_48h_mm": 0.1,
+          "rain_3d_mm": 0.1,
+          "rain_7d_mm": 61.8,
+          "forecast_rain_24h_mm": 0.3,
+          "waterlogging_probability": 0.0,
+          "drainage_congestion_probability": 0.0,
+          "sentinel1_water_change_detected": false,
+          "official_cwc_alert_count": 0
+        }
+      }
+    ],
+    "operational_alert": "Flood MODERATE",
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.9688
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  },
+  "Visakhapatnam": {
+    "city": "Visakhapatnam",
+    "state": "Andhra Pradesh",
+    "coordinates": [
+      17.6868,
+      83.2185
+    ],
+    "verified_hazards": [
+      {
+        "hazard": "flood",
+        "active": true,
+        "severity": "MODERATE",
+        "confidence_type": "evidence_based",
+        "sources": [
+          "Open-Meteo Flood (GloFAS v4)",
+          "Hydrological Telemetry"
+        ],
+        "source": [
+          "Open-Meteo Flood (GloFAS v4)",
+          "Hydrological Telemetry"
+        ],
+        "reason": "Elevated flood risk supported by elevated discharge (40.9 m\u00b3/s).",
+        "evidence": {
+          "river_discharge_m3s": 40.88,
+          "peak_discharge_7d_m3s": 150.36,
+          "discharge_trend": "FALLING",
+          "rain_24h_mm": 0.3,
+          "rain_48h_mm": 0.2,
+          "rain_3d_mm": 0.5,
+          "rain_7d_mm": 15.9,
+          "forecast_rain_24h_mm": 0.1,
+          "waterlogging_probability": 0.0,
+          "drainage_congestion_probability": 0.0,
+          "sentinel1_water_change_detected": false,
+          "official_cwc_alert_count": 0
+        }
+      },
+      {
+        "hazard": "air_pollution",
+        "active": true,
+        "severity": "MODERATE",
+        "confidence_type": "evidence_based",
+        "sources": [
+          "Open-Meteo Atmospheric Chemistry / CPCB Criteria"
+        ],
+        "reason": "Unhealthy air quality for sensitive groups: AQI 158, PM2.5 72.9 \u00b5g/m\u00b3.",
+        "evidence": {
+          "us_aqi": 158.0,
+          "pm2_5_ugm3": 72.9
+        },
+        "source": [
+          "Open-Meteo Atmospheric Chemistry / CPCB Criteria"
+        ]
+      }
+    ],
+    "operational_alert": "Flood MODERATE \u00b7 Air Pollution MODERATE",
+    "raw_model": {
+      "prediction": "air_pollution",
+      "confidence": 0.1503
+    },
+    "data_quality": "FULL_DATA",
+    "missing_providers": [],
+    "historical_context": {
+      "earthquake_24h": 0,
+      "earthquake_30d": 0,
+      "rainfall_7d_mm": 0.0,
+      "drought_deficit_pct": 0.0
+    }
+  }
+}

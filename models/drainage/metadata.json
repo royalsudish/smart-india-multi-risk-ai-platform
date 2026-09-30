@@ -1,0 +1,51 @@
+{
+  "artifact": "drainage_random_forest.pkl",
+  "kind": "sklearn_model",
+  "task": "binary_classification",
+  "model": "Random Forest Drainage Classifier",
+  "n_estimators": 100,
+  "n_features": 6,
+  "features": [
+    "elevation",
+    "slope",
+    "rain_max",
+    "sentinel1_vv",
+    "NDVI",
+    "NDBI"
+  ],
+  "feature_units": {
+    "elevation": "meters",
+    "slope": "degrees",
+    "rain_max": "log10(rain_mm + 1)",
+    "sentinel1_vv": "decibels (dB)",
+    "NDVI": "index (-1 to 1)",
+    "NDBI": "index (-1 to 1)"
+  },
+  "feature_transformations": {
+    "rain_max": {
+      "formula": "log10(rain_mm + 1)",
+      "raw_input_unit": "millimeters (mm)",
+      "model_input_unit": "log10(mm + 1)",
+      "training_threshold_range": [1.96, 2.475],
+      "median_threshold": 2.13,
+      "description": "Logarithmic base-10 transformation of maximum event rainfall in mm plus 1."
+    }
+  },
+  "feature_importances": {
+    "sentinel1_vv": 0.2865873945750252,
+    "elevation": 0.21696194642496333,
+    "NDVI": 0.18087403756397868,
+    "NDBI": 0.15683659038041053,
+    "slope": 0.1079087059602484,
+    "rain_max": 0.05083132509537396
+  },
+  "classes": [0, 1],
+  "class_meanings": {
+    "0": "Adequate Drainage / Low Risk",
+    "1": "Drainage Congestion / Failure Risk"
+  },
+  "predict_proba": true,
+  "scaler_included": false,
+  "encoder_included": false,
+  "pipeline_included": false
+}

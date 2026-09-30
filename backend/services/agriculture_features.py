@@ -19,31 +19,34 @@ CORE_NUMERIC_FEATURES = [
 ]
 
 
-def get_live_weather_metrics(lat: float, lon: float) -> dict:
+def get_live_weather_metrics(lat: float, lon: float, raw_daily_forecast: dict = None) -> dict:
     """
     Source-faithful implementation of the uploaded notebook's final
     place-to-advisory weather feature builder.
     """
-    data = get_json(
-        OPEN_METEO_FORECAST_URL,
-        {
-            "latitude": lat,
-            "longitude": lon,
-            "daily": ",".join([
-                "temperature_2m_max",
-                "temperature_2m_min",
-                "temperature_2m_mean",
-                "precipitation_sum",
-                "relative_humidity_2m_mean",
-                "wind_speed_10m_max",
-                "shortwave_radiation_sum",
-                "et0_fao_evapotranspiration",
-            ]),
-            "past_days": 14,
-            "forecast_days": 1,
-            "timezone": "Asia/Kolkata",
-        },
-    )
+    if raw_daily_forecast is not None:
+        data = raw_daily_forecast
+    else:
+        data = get_json(
+            OPEN_METEO_FORECAST_URL,
+            {
+                "latitude": lat,
+                "longitude": lon,
+                "daily": ",".join([
+                    "temperature_2m_max",
+                    "temperature_2m_min",
+                    "temperature_2m_mean",
+                    "precipitation_sum",
+                    "relative_humidity_2m_mean",
+                    "wind_speed_10m_max",
+                    "shortwave_radiation_sum",
+                    "et0_fao_evapotranspiration",
+                ]),
+                "past_days": 14,
+                "forecast_days": 1,
+                "timezone": "Asia/Kolkata",
+            },
+        )
 
     d = data["daily"]
     df = pd.DataFrame(d).ffill().bfill()
@@ -138,8 +141,8 @@ def get_live_weather_metrics(lat: float, lon: float) -> dict:
     }
 
 
-def assemble_agriculture_payload(lat, lon, crop, crop_stage):
-    weather = get_live_weather_metrics(float(lat), float(lon))
+def assemble_agriculture_payload(lat, lon, crop, crop_stage, raw_daily_forecast=None):
+    weather = get_live_weather_metrics(float(lat), float(lon), raw_daily_forecast=raw_daily_forecast)
 
     payload = dict(weather)
     payload["latitude"] = float(lat)
@@ -167,3 +170,15 @@ def assemble_agriculture_payload(lat, lon, crop, crop_stage):
     )
 
     return payload
+
+
+def build_live_agri_features(lat: float, lon: float, crop: str = "Wheat", stage: str = "Flowering", raw_daily_forecast=None):
+    """Builds agriculture live features dictionary containing standard 35-feature payload."""
+    payload = assemble_agriculture_payload(lat, lon, crop=crop, crop_stage=stage, raw_daily_forecast=raw_daily_forecast)
+    return {
+        "features": payload,
+        "crop": crop,
+        "crop_stage": stage,
+        "latitude": float(lat),
+        "longitude": float(lon),
+    }

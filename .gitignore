@@ -3,3 +3,20 @@ __pycache__/
 *.pyc
 .env
 .DS_Store
+
+# Database runtime files
+data/alerts.db
+data/*.db-wal
+data/*.db-shm
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary/cache
+.cache/
+temp/
+tmp/

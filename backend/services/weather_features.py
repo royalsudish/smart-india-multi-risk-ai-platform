@@ -34,7 +34,7 @@ def _wet_bulb_stull(temp_c, rh):
         - 4.686035
     )
 
-def build_live_weather_features(lat, lon):
+def build_live_weather_features(lat, lon, raw_forecast=None):
     """
     Builds the 39 inputs found in the uploaded WeatherGPT bundle.
 
@@ -43,7 +43,7 @@ def build_live_weather_features(lat, lon):
     saved preprocessor metadata. If you have the original training notebook,
     compare the formulas before treating this as production/scientific output.
     """
-    raw = forecast(lat, lon, past_days=2, forecast_days=2)
+    raw = raw_forecast or forecast(lat, lon, past_days=2, forecast_days=2)
     hourly = raw.get("hourly") or {}
     times = hourly.get("time") or []
     current_time = (raw.get("current") or {}).get("time")

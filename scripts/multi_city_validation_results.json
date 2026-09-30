@@ -1,0 +1,338 @@
+[
+  {
+    "city": "Patna",
+    "coordinates": {
+      "lat": 25.5941,
+      "lon": 85.1376
+    },
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.7159,
+      "top_probabilities": {
+        "earthquake": 0.7159,
+        "drought": 0.0858,
+        "heat_wave": 0.04
+      }
+    },
+    "live_evidence": {
+      "nearest_quake_km": 300.0,
+      "nearest_quake_age_days": 34.16,
+      "max_quake_mag": null,
+      "river_discharge": null,
+      "gdacs_cyclone": null,
+      "gdacs_volcano": null,
+      "tsunami_flag": null
+    },
+    "historical_context": {
+      "quakes_24h": null,
+      "quakes_7d": null,
+      "quakes_30d": null,
+      "quakes_90d": null,
+      "peak_discharge_7d": null,
+      "discharge_trend": null,
+      "rain_7d_mm": null
+    },
+    "verified_hazard": {
+      "status": "UNCORROBORATED_MODEL_SIGNAL",
+      "hazard": null,
+      "active": false,
+      "severity": "LOW",
+      "alert_title": "Uncorroborated earthquake model signal (no active seismic event)",
+      "reason": "The XGBoost model produced an earthquake-like pattern (confidence: 71.6%), but no recent locally relevant seismic event corroborates it (nearest event: 300 km away, 34.2 days ago)."
+    }
+  },
+  {
+    "city": "Guntur",
+    "coordinates": {
+      "lat": 16.3067,
+      "lon": 80.4365
+    },
+    "raw_model": {
+      "prediction": "drought",
+      "confidence": 0.3777,
+      "top_probabilities": {
+        "drought": 0.3777,
+        "heat_wave": 0.0902,
+        "extreme_temperature": 0.0574
+      }
+    },
+    "live_evidence": {
+      "nearest_quake_km": 440.09,
+      "nearest_quake_age_days": 79.3,
+      "max_quake_mag": null,
+      "river_discharge": null,
+      "gdacs_cyclone": null,
+      "gdacs_volcano": null,
+      "tsunami_flag": null
+    },
+    "historical_context": {
+      "quakes_24h": null,
+      "quakes_7d": null,
+      "quakes_30d": null,
+      "quakes_90d": null,
+      "peak_discharge_7d": null,
+      "discharge_trend": null,
+      "rain_7d_mm": null
+    },
+    "verified_hazard": {
+      "status": "UNCORROBORATED_MODEL_SIGNAL",
+      "hazard": null,
+      "active": false,
+      "severity": "LOW",
+      "alert_title": "Uncorroborated drought model signal",
+      "reason": "Model predicted drought, but recent rainfall (21.5 mm in past 7 days) does not support active drought."
+    }
+  },
+  {
+    "city": "Hyderabad",
+    "coordinates": {
+      "lat": 17.385,
+      "lon": 78.4867
+    },
+    "raw_model": {
+      "prediction": "low_pressure",
+      "confidence": 0.418,
+      "top_probabilities": {
+        "low_pressure": 0.418,
+        "drought": 0.2291,
+        "nominal": 0.0428
+      }
+    },
+    "live_evidence": {
+      "nearest_quake_km": 260.15,
+      "nearest_quake_age_days": 82.44,
+      "max_quake_mag": null,
+      "river_discharge": null,
+      "gdacs_cyclone": null,
+      "gdacs_volcano": null,
+      "tsunami_flag": null
+    },
+    "historical_context": {
+      "quakes_24h": null,
+      "quakes_7d": null,
+      "quakes_30d": null,
+      "quakes_90d": null,
+      "peak_discharge_7d": null,
+      "discharge_trend": null,
+      "rain_7d_mm": null
+    },
+    "verified_hazard": {
+      "status": "UNCORROBORATED_MODEL_SIGNAL",
+      "hazard": null,
+      "active": false,
+      "severity": "LOW",
+      "alert_title": "Uncorroborated low pressure model signal",
+      "reason": "Model predicted low pressure (41.8%), but live telemetry lacks conclusive corroborating indicators."
+    }
+  },
+  {
+    "city": "Visakhapatnam",
+    "coordinates": {
+      "lat": 17.6868,
+      "lon": 83.2185
+    },
+    "raw_model": {
+      "prediction": "air_pollution",
+      "confidence": 0.1053,
+      "top_probabilities": {
+        "air_pollution": 0.1053,
+        "heat_wave": 0.0955,
+        "high_pressure": 0.0844
+      }
+    },
+    "live_evidence": {
+      "nearest_quake_km": 194.92,
+      "nearest_quake_age_days": 79.3,
+      "max_quake_mag": null,
+      "river_discharge": null,
+      "gdacs_cyclone": null,
+      "gdacs_volcano": null,
+      "tsunami_flag": null
+    },
+    "historical_context": {
+      "quakes_24h": null,
+      "quakes_7d": null,
+      "quakes_30d": null,
+      "quakes_90d": null,
+      "peak_discharge_7d": null,
+      "discharge_trend": null,
+      "rain_7d_mm": null
+    },
+    "verified_hazard": {
+      "status": "SUPPORTED_HAZARD_SIGNAL",
+      "hazard": "air_pollution",
+      "active": true,
+      "severity": "MODERATE",
+      "alert_title": "Supported Air Pollution Signal \u2014 UNHEALTHY",
+      "reason": "Unhealthy air quality supported by live US AQI (160)."
+    }
+  },
+  {
+    "city": "Delhi",
+    "coordinates": {
+      "lat": 28.6139,
+      "lon": 77.209
+    },
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.6271,
+      "top_probabilities": {
+        "earthquake": 0.6271,
+        "low_pressure": 0.1673,
+        "heat_wave": 0.0333
+      }
+    },
+    "live_evidence": {
+      "nearest_quake_km": 273.2,
+      "nearest_quake_age_days": 50.45,
+      "max_quake_mag": null,
+      "river_discharge": null,
+      "gdacs_cyclone": null,
+      "gdacs_volcano": null,
+      "tsunami_flag": null
+    },
+    "historical_context": {
+      "quakes_24h": null,
+      "quakes_7d": null,
+      "quakes_30d": null,
+      "quakes_90d": null,
+      "peak_discharge_7d": null,
+      "discharge_trend": null,
+      "rain_7d_mm": null
+    },
+    "verified_hazard": {
+      "status": "UNCORROBORATED_MODEL_SIGNAL",
+      "hazard": null,
+      "active": false,
+      "severity": "LOW",
+      "alert_title": "Uncorroborated earthquake model signal (no active seismic event)",
+      "reason": "The XGBoost model produced an earthquake-like pattern (confidence: 62.7%), but no recent locally relevant seismic event corroborates it (nearest event: 273 km away, 50.5 days ago)."
+    }
+  },
+  {
+    "city": "Mumbai",
+    "coordinates": {
+      "lat": 19.076,
+      "lon": 72.8777
+    },
+    "raw_model": {
+      "prediction": "nominal",
+      "confidence": 0.9936,
+      "top_probabilities": {
+        "nominal": 0.9936,
+        "drought": 0.0043,
+        "storm_surge": 0.0003
+      }
+    },
+    "live_evidence": {
+      "nearest_quake_km": 147.12,
+      "nearest_quake_age_days": 51.59,
+      "max_quake_mag": null,
+      "river_discharge": null,
+      "gdacs_cyclone": null,
+      "gdacs_volcano": null,
+      "tsunami_flag": null
+    },
+    "historical_context": {
+      "quakes_24h": null,
+      "quakes_7d": null,
+      "quakes_30d": null,
+      "quakes_90d": null,
+      "peak_discharge_7d": null,
+      "discharge_trend": null,
+      "rain_7d_mm": null
+    },
+    "verified_hazard": {
+      "status": "NO_ACTIVE_HAZARD",
+      "hazard": null,
+      "active": false,
+      "severity": "LOW",
+      "alert_title": "No active local disaster alert",
+      "reason": "Nominal baseline conditions: No severe disaster hazards detected across model predictions and live observation feeds."
+    }
+  },
+  {
+    "city": "Guwahati",
+    "coordinates": {
+      "lat": 26.1445,
+      "lon": 91.7362
+    },
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.9915,
+      "top_probabilities": {
+        "earthquake": 0.9915,
+        "drought": 0.0028,
+        "nominal": 0.0008
+      }
+    },
+    "live_evidence": {
+      "nearest_quake_km": 125.62,
+      "nearest_quake_age_days": 79.01,
+      "max_quake_mag": null,
+      "river_discharge": null,
+      "gdacs_cyclone": null,
+      "gdacs_volcano": null,
+      "tsunami_flag": null
+    },
+    "historical_context": {
+      "quakes_24h": null,
+      "quakes_7d": null,
+      "quakes_30d": null,
+      "quakes_90d": null,
+      "peak_discharge_7d": null,
+      "discharge_trend": null,
+      "rain_7d_mm": null
+    },
+    "verified_hazard": {
+      "status": "UNCORROBORATED_MODEL_SIGNAL",
+      "hazard": null,
+      "active": false,
+      "severity": "LOW",
+      "alert_title": "Uncorroborated earthquake model signal (no active seismic event)",
+      "reason": "The XGBoost model produced an earthquake-like pattern (confidence: 99.2%), but no recent locally relevant seismic event corroborates it (nearest event: 126 km away, 79.0 days ago)."
+    }
+  },
+  {
+    "city": "Srinagar",
+    "coordinates": {
+      "lat": 34.0837,
+      "lon": 74.7973
+    },
+    "raw_model": {
+      "prediction": "earthquake",
+      "confidence": 0.9995,
+      "top_probabilities": {
+        "earthquake": 0.9995,
+        "low_pressure": 0.0003,
+        "air_pollution": 0.0
+      }
+    },
+    "live_evidence": {
+      "nearest_quake_km": 157.14,
+      "nearest_quake_age_days": 52.13,
+      "max_quake_mag": null,
+      "river_discharge": null,
+      "gdacs_cyclone": null,
+      "gdacs_volcano": null,
+      "tsunami_flag": null
+    },
+    "historical_context": {
+      "quakes_24h": null,
+      "quakes_7d": null,
+      "quakes_30d": null,
+      "quakes_90d": null,
+      "peak_discharge_7d": null,
+      "discharge_trend": null,
+      "rain_7d_mm": null
+    },
+    "verified_hazard": {
+      "status": "UNCORROBORATED_MODEL_SIGNAL",
+      "hazard": null,
+      "active": false,
+      "severity": "LOW",
+      "alert_title": "Uncorroborated earthquake model signal (no active seismic event)",
+      "reason": "The XGBoost model produced an earthquake-like pattern (confidence: 99.9%), but no recent locally relevant seismic event corroborates it (nearest event: 157 km away, 52.1 days ago)."
+    }
+  }
+]

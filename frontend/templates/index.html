@@ -3,87 +3,1297 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Smart Multi-Risk AI Platform</title>
+  <title>Smart India-Wide Multi-Risk AI Platform | Geospatial Command Center</title>
+  <meta name="description" content="Pan-India Geospatial Command Center for Weather, Disaster Management, Agriculture Advisory, and Waterlogging Hazard Prediction.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Leaflet.js 1.9.4 CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-  <header>
-    <h1>Smart Multi-Risk AI Platform</h1>
-    <p>Weather • Agriculture • Waterlogging • Disaster Management</p>
+  <!-- Header Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Smart India-Wide Multi-Risk AI Platform</h1>
+          <p class="brand-subtitle">Pan-India Geospatial Command Center: Weather • Disaster • Agriculture • Waterlogging</p>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="live-pill"><span class="pulse-dot"></span> Live Unified Endpoint Active</span>
+      </div>
+    </div>
   </header>
 
-  <main>
-    <section class="panel">
-      <h2>Model Status</h2>
-      <button id="reloadBtn">Reload Models</button>
-      <div id="statusGrid" class="grid"></div>
-    </section>
+  <main class="main-container">
+    <!-- Top Control Bar (Location Search, GPS, Crop Config, Analyze) -->
+    <section class="panel control-bar" id="inputSection">
+      <div class="control-bar-grid">
+        <!-- Search Input -->
+        <div class="control-group search-group">
+          <label for="placeSearchInput" class="control-label">Location in India</label>
+          <div class="search-input-wrapper">
+            <input id="placeSearchInput" type="text" placeholder="Search village, town, city, district, or PIN code..." autocomplete="off" aria-label="Search location in India">
+            <span id="searchSpinner" class="input-spinner" style="display: none;"></span>
+            <!-- Disambiguation Results Dropdown -->
+            <div id="placeSearchResults" class="search-results-box" style="display: none;" role="listbox" aria-label="Location search suggestions"></div>
+          </div>
+        </div>
 
-    <section class="panel">
-      <h2>Run All Models</h2>
+        <!-- Location Actions (Search & GPS Buttons) -->
+        <div class="control-group actions-group">
+          <button id="searchLocationBtn" class="btn-secondary" type="button" aria-label="Search Location">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search</span>
+          </button>
+          <button id="useLocationBtn" class="btn-secondary btn-gps" type="button" aria-label="Use My Current Location">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+            </svg>
+            <span id="gpsBtnText">GPS Location</span>
+          </button>
+        </div>
 
-      <div class="form-grid">
-        <label>
-          Latitude
-          <input id="lat" type="number" step="any" value="16.3067">
-        </label>
+        <!-- Crop Selector -->
+        <div class="control-group crop-group">
+          <label for="cropSelect" class="control-label">Crop</label>
+          <select id="cropSelect" aria-label="Select Crop">
+            <option value="Rice" selected>Rice</option>
+            <option value="Wheat">Wheat</option>
+            <option value="Cotton">Cotton</option>
+            <option value="Maize">Maize</option>
+            <option value="Mustard">Mustard</option>
+            <option value="Soybean">Soybean</option>
+          </select>
+        </div>
 
-        <label>
-          Longitude
-          <input id="lon" type="number" step="any" value="80.4365">
-        </label>
+        <!-- Crop Stage Selector -->
+        <div class="control-group stage-group">
+          <label for="cropStageSelect" class="control-label">Crop Stage</label>
+          <select id="cropStageSelect" aria-label="Select Crop Stage">
+            <option value="Flowering" selected>Flowering</option>
+            <option value="Vegetative">Vegetative</option>
+            <option value="Tillering">Tillering</option>
+            <option value="Maturity">Maturity</option>
+            <option value="Transplanting">Transplanting</option>
+            <option value="Grain_Filling">Grain Filling</option>
+            <option value="Silking">Silking</option>
+            <option value="Tasseling">Tasseling</option>
+            <option value="Boll_Formation">Boll Formation</option>
+            <option value="Square_Formation">Square Formation</option>
+            <option value="Pod_Initiation">Pod Initiation</option>
+            <option value="Pod_Formation">Pod Formation</option>
+            <option value="Pod_Filling">Pod Filling</option>
+          </select>
+        </div>
 
-        <label class="checkbox-row">
-          <input id="autoWeather" type="checkbox">
-          Fetch live weather automatically
-        </label>
+        <!-- Primary Analyze CTA -->
+        <div class="control-group analyze-group">
+          <button id="analyzeBtn" class="btn-primary" type="button" aria-label="Analyze Live Conditions">
+            <span class="btn-spinner" id="btnSpinner" style="display: none;"></span>
+            <span class="btn-text" id="btnText">Analyze Live Conditions</span>
+          </button>
+        </div>
       </div>
 
-      <p class="hint">
-        Enter JSON features below. Use the exact training feature names from each model's metadata.json.
-      </p>
-
-      <div class="editors">
-        <div>
-          <h3>Weather features</h3>
-          <textarea id="weather">{}</textarea>
+      <!-- Selected Location Status & Disclaimer Bar -->
+      <div class="location-status-bar">
+        <div id="selectedLocationCard" class="selected-location-pill" style="display: none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <span class="selected-loc-prefix">Selected:</span>
+          <span id="selectedPlaceName" class="selected-loc-name">--</span>
+          <span id="pointAnalysisDisclaimer" class="disclaimer-tag">Point analysis at selected/resolved coordinate</span>
         </div>
-        <div>
-          <h3>Agriculture features</h3>
-          <textarea id="agriculture">{
-  "soil_moisture": 55,
-  "ndvi": 0.55,
-  "soil_ph": 6.8
-}</textarea>
-        </div>
-        <div>
-          <h3>Waterlogging features</h3>
-          <textarea id="waterlogging">{
-  "elevation_m": 35,
-  "slope_deg": 1.5,
-  "land_use_code": 2,
-  "distance_to_drain_m": 140,
-  "drainage_density": 0.8
-}</textarea>
-        </div>
-        <div>
-          <h3>Disaster features</h3>
-          <textarea id="disaster">{
-  "population_density": 1100,
-  "vulnerability_index": 0.62
-}</textarea>
+        <div class="osm-attribution-compact">
+          Geocoding &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors
         </div>
       </div>
 
-      <button id="predictBtn" class="primary">Predict All</button>
+      <!-- Hidden Internal Coordinates (Required for form state & programmatic testing) -->
+      <input id="latInput" type="hidden" value="16.3067">
+      <input id="lonInput" type="hidden" value="80.4365">
+
+      <!-- Validation Error Message Banner -->
+      <div id="validationMsg" class="alert-banner alert-error" style="display: none;" role="alert"></div>
     </section>
 
-    <section class="panel">
-      <h2>Result</h2>
-      <pre id="result">Run a prediction to see output.</pre>
+    <!-- Dynamic Loading Stage Experience -->
+    <div id="loadingIndicator" class="loading-overlay" style="display: none;">
+      <div class="loading-card">
+        <div class="loading-pulse-ring"></div>
+        <div class="loading-content">
+          <div class="loading-spinner"></div>
+          <h3 class="loading-title">Analyzing Live Multi-Risk Platform</h3>
+          <p id="loadingStageText" class="loading-stage">Initializing live data providers...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN 3-COLUMN COMMAND CENTER GRID (Desktop: 22% Left | 56% Center Map | 22% Right) -->
+    <div class="command-center-grid">
+      
+      <!-- =====================================================================
+           LEFT COLUMN (~22%): SMART DRAINAGE & WATERLOGGING + DISASTER
+           ===================================================================== -->
+      <aside class="column-sidebar column-left">
+        <!-- 1. Smart Drainage & Waterlogging Panel -->
+        <article class="command-panel" id="waterloggingCard">
+          <div class="panel-header-compact">
+            <div class="panel-title-wrap">
+              <span class="panel-icon icon-water">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                </svg>
+              </span>
+              <div>
+                <h2 class="panel-heading">Smart Drainage &amp; Waterlogging</h2>
+                <span class="panel-subheading">Random Forest (Thresh: 0.36)</span>
+              </div>
+            </div>
+            <span id="wlStatusBadge" class="status-pill status-neutral">--</span>
+          </div>
+
+          <div class="panel-scroll-body">
+            <div id="wlErrorBox" class="card-error" style="display: none;"></div>
+
+            <div id="wlContent">
+              <!-- Warning Banner -->
+              <div id="wlWarningBanner" class="alert-banner alert-warning" style="display: none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+                <span><strong>WATERLOGGING WARNING ACTIVE: </strong>Soil saturation exceeds critical 0.36 threshold.</span>
+              </div>
+
+              <!-- 1. CURRENT RISK -->
+              <div class="section-badge-header">1. Current Risk</div>
+              <div class="compact-pred-grid">
+                <div class="pred-tile">
+                  <span class="tile-label">Risk Level</span>
+                  <span id="wlRiskLevel" class="pred-badge badge-neutral">--</span>
+                </div>
+                <div class="pred-tile">
+                  <span class="tile-label">Positive Prob</span>
+                  <span id="wlProb" class="pred-conf">--</span>
+                </div>
+                <div class="pred-tile">
+                  <span class="tile-label">Warning Thresh</span>
+                  <span class="pred-threshold">0.36</span>
+                </div>
+              </div>
+
+              <!-- Timeline Summary Strip -->
+              <span id="wlAnalysisTime" style="display: none;">--</span>
+              <div class="timeline-strip">
+                <div class="strip-item">Past 24h: <strong id="wlTimelinePast24h">--</strong></div>
+                <div class="strip-divider">|</div>
+                <div class="strip-item">Past 7d: <strong id="wlTimelinePast7d">--</strong></div>
+                <div class="strip-divider">|</div>
+                <div class="strip-item">Next 24h: <strong id="wlTimelineFuture24h">--</strong></div>
+                <div class="strip-divider">|</div>
+                <div class="strip-item">Next 72h: <strong id="wlTimelineFuture72h">--</strong></div>
+              </div>
+
+              <!-- 2. MODEL RECENT RAINFALL (Open-Meteo Historical/Recent Hourly Model Data) -->
+              <details class="collapsible-section" open>
+                <summary class="collapsible-heading">2. Model Recent Rainfall (Open-Meteo)</summary>
+                <div class="metrics-grid-dense">
+                  <div class="dense-cell"><span class="d-label">1h:</span> <span id="wlRain1h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">3h:</span> <span id="wlRain3h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">6h:</span> <span id="wlRain6h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">12h:</span> <span id="wlRain12h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">24h:</span> <span id="wlRain24h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">3d:</span> <span id="wlRain3d" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">7d:</span> <span id="wlRain7d" class="d-val">--</span></div>
+                </div>
+              </details>
+
+              <!-- 3. SPATIAL RAINFALL (Open-Meteo Recent Hourly Model Data) -->
+              <details class="collapsible-section" id="wlSpatialSection" open>
+                <summary class="collapsible-heading">
+                  <span>3. Spatial Rainfall (Open-Meteo)</span>
+                  <span id="wlSpatialStatus" class="status-pill status-neutral">--</span>
+                </summary>
+                <div class="gpm-dense-content">
+                  <div class="dense-row">
+                    <span class="d-label">Analysis Time:</span>
+                    <span id="wlSpatialTime" class="d-val">--</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Sampling Grid:</span>
+                    <span id="wlSpatialGridInfo" class="d-val">Spatial Rainfall Sampling Grid — 0.1° request spacing (11 &times; 11)</span>
+                  </div>
+                  <div class="sub-badge-header">Rolling Accumulation Windows (Direct Sum mm)</div>
+                  <div class="metrics-grid-dense">
+                    <div class="dense-cell"><span class="d-label">1h:</span> <span id="wlSpatial1h" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">3h:</span> <span id="wlSpatial3h" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">6h:</span> <span id="wlSpatial6h" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">12h:</span> <span id="wlSpatial12h" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">24h:</span> <span id="wlSpatial24h" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">3d (72h):</span> <span id="wlSpatial3d" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">7d (168h):</span> <span id="wlSpatial7d" class="d-val">--</span></div>
+                  </div>
+                  <div class="sub-note" id="wlSpatialSourceNote">Source: Open-Meteo Recent Hourly Model Data (0.1° requested sampling grid). Underlying NWP model selected via Open-Meteo Best Match.</div>
+                </div>
+              </details>
+
+              <!-- 4. FORECAST RAINFALL (Open-Meteo Hourly Forecast) -->
+              <details class="collapsible-section" open>
+                <summary class="collapsible-heading">4. Forecast Rainfall (Open-Meteo 7 Windows)</summary>
+                <div class="metrics-grid-dense">
+                  <div class="dense-cell"><span class="d-label">Next 1h:</span> <span id="wlFcNext1h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">Next 3h:</span> <span id="wlFcNext3h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">Next 6h:</span> <span id="wlFcNext6h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">Next 12h:</span> <span id="wlFcNext12h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">Next 24h:</span> <span id="wlFcNext24h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">Next 48h:</span> <span id="wlFcNext48h" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">Next 72h:</span> <span id="wlFcNext72h" class="d-val">--</span></div>
+                </div>
+              </details>
+
+              <!-- 5. DRAINAGE NETWORK INTELLIGENCE (OSM via Overpass) -->
+              <details class="collapsible-section" id="wlDrainageBox" open>
+                <summary class="collapsible-heading">
+                  <span>5. Drainage Network (OSM)</span>
+                  <span id="wlDrainStatus" class="status-pill status-neutral">--</span>
+                </summary>
+                <div class="drainage-dense-content">
+                  <div class="dense-row" id="wlDrainModelRow">
+                    <span class="d-label">Drainage ML Risk:</span>
+                    <span class="d-val"><span id="wlDrainModelRisk" class="badge-pill badge-neutral">--</span> (<span id="wlDrainModelProb">--</span> prob)</span>
+                  </div>
+                  <div class="dense-row" id="wlDrainQualityRow">
+                    <span class="d-label">Data Fidelity:</span>
+                    <span class="d-val">
+                      <span id="wlDrainDataQualityBadge" class="badge-quality-partial" title="Elevation: Open-Meteo DEM (Live) | Slope: DEM Derived | Rain: Open-Meteo (Derived) | S1: Fallback | NDVI/NDBI: Fallback">PARTIAL LIVE</span>
+                    </span>
+                  </div>
+                  <div class="dense-row" id="wlDrainOpticalRow">
+                    <span class="d-label">Sentinel-2 (Optical):</span>
+                    <span class="d-val">
+                      NDVI: <strong id="wlDrainNdviVal">--</strong> | NDBI: <strong id="wlDrainNdbiVal">--</strong>
+                      <span id="wlDrainOpticalBadge" class="badge-pill badge-neutral" style="font-size:0.65rem; padding: 1px 5px; margin-left: 4px;">--</span>
+                      <span id="wlDrainOpticalDate" style="font-size: 0.68rem; color: var(--text-dim, #888); margin-left: 4px;">--</span>
+                    </span>
+                  </div>
+                  <div class="dense-row" id="wlDrainSarRow">
+                    <span class="d-label">Sentinel-1 (SAR):</span>
+                    <span class="d-val">
+                      VV: <strong id="wlDrainSarVal">--</strong>
+                      <span id="wlDrainSarBadge" class="badge-pill badge-neutral" style="font-size:0.65rem; padding: 1px 5px; margin-left: 4px;">--</span>
+                      <span id="wlDrainSarDate" style="font-size: 0.68rem; color: var(--text-dim, #888); margin-left: 4px;">--</span>
+                    </span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Nearest Waterway:</span>
+                    <span id="wlDrainDistance" class="d-val">--</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Name &amp; Type:</span>
+                    <span class="d-val"><span id="wlDrainName">--</span> (<span id="wlDrainType">--</span>)</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Density / Count:</span>
+                    <span class="d-val"><span id="wlDrainDensity">--</span> (<span id="wlDrainCount">--</span> ways)</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Mapped Length:</span>
+                    <span id="wlDrainLength" class="d-val">--</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Proximity Tier:</span>
+                    <span id="wlDrainProximityBadge" class="badge-pill badge-neutral">--</span>
+                  </div>
+                  <div class="dense-row" id="wlDrainFeatureRow" style="font-size: 0.72rem; color: var(--text-dim, #888); margin-top: 4px;">
+                    <span class="d-label">Model Inputs (6F):</span>
+                    <span id="wlDrainFeatureSummary" class="d-val">--</span>
+                  </div>
+                  <span id="wlDrainArea" style="display: none;">2000m / 12.57 km²</span>
+                  <div class="sub-note" id="wlDrainSourceNote">Source: Random Forest (6-feat) &amp; OpenStreetMap (2km buffer)</div>
+                </div>
+              </details>
+
+              <!-- 6. TOPOGRAPHY & TERRAIN INTELLIGENCE -->
+              <details class="collapsible-section" id="wlTerrainSection" open>
+                <summary class="collapsible-heading">
+                  <span>6. Topography &amp; Terrain</span>
+                  <span id="wlTerrainStatus" class="status-pill status-neutral">--</span>
+                </summary>
+                <div class="terrain-dense-content">
+                  <div class="metrics-grid-dense">
+                    <div class="dense-cell"><span class="d-label">Center Elev:</span> <span id="wlElevation" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Model Slope:</span> <span id="wlSlope" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Relative Elev:</span> <span id="wlRelativeElevation" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Relief (Range):</span> <span id="wlLocalRelief" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Gradient:</span> <span id="wlGradient" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Downslope:</span> <span id="wlDownslopeDirection" class="d-val">--</span></div>
+                  </div>
+                  <span id="wlRelativeElevationBadge" style="display: none;"></span>
+                  <span id="wlSurroundingMean" style="display: none;"></span>
+                  <span id="wlElevationRange" style="display: none;"></span>
+                  <div class="terrain-profiles-dense">
+                    <div class="prof-line"><strong>N–S Profile:</strong> <span id="wlProfileNS">--</span></div>
+                    <div class="prof-line"><strong>E–W Profile:</strong> <span id="wlProfileEW">--</span></div>
+                  </div>
+                  <div class="sub-note" id="wlTerrainSourceNote">Source: Open-Meteo Elevation API (13 sample points)</div>
+                </div>
+              </details>
+
+              <!-- 7. SATELLITE WATER DETECTION (Sentinel-1 SAR Phase F) -->
+              <details class="collapsible-section" id="wlSarSection" open>
+                <summary class="collapsible-heading">
+                  <span>7. Sentinel-1 SAR Surface Water</span>
+                  <span id="wlSarStatus" class="status-pill status-neutral">--</span>
+                </summary>
+                <div class="gpm-dense-content">
+                  <div class="dense-row">
+                    <span class="d-label">Latest SAR Acquisition:</span>
+                    <span id="wlSarAcquisitionTime" class="d-val">--</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Scene Age:</span>
+                    <span id="wlSarSceneAge" class="d-val">--</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Orbit / Track:</span>
+                    <span id="wlSarOrbitInfo" class="d-val">--</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">Baseline Reference:</span>
+                    <span id="wlSarBaselineInfo" class="d-val">--</span>
+                  </div>
+                  <div class="dense-row">
+                    <span class="d-label">SAR VV Backscatter:</span>
+                    <span class="d-val">
+                      <strong id="wlSarVvVal">--</strong>
+                      <span id="wlSarVvBadge" class="badge-pill badge-neutral" style="font-size:0.65rem; padding: 1px 5px; margin-left: 4px;">--</span>
+                      <span id="wlSarVvMode" style="font-size: 0.68rem; color: var(--text-dim, #888); margin-left: 4px;">--</span>
+                    </span>
+                  </div>
+                  <div class="metrics-grid-dense" style="margin-top: 6px;">
+                    <div class="dense-cell"><span class="d-label">Possible New Water:</span> <span id="wlSarCandidateArea" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Persistent Low:</span> <span id="wlSarPersistentArea" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Comparison Coverage:</span> <span id="wlSarCoverage" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Candidate Fraction:</span> <span id="wlSarFraction" class="d-val">--</span></div>
+                  </div>
+                  <div class="dense-row" style="margin-top: 6px; border-top: 1px dashed rgba(255,255,255,0.08); padding-top: 5px;">
+                    <span class="d-label">Sentinel-2 Optical Status:</span>
+                    <span class="d-val">
+                      <span id="wlS2StatusPill" class="status-pill status-neutral">--</span>
+                      <span id="wlS2SceneInfo" style="font-size: 0.72rem; color: var(--text-dim, #888); margin-left: 4px;">--</span>
+                    </span>
+                  </div>
+                  <div class="sub-note" id="wlSarSourceNote">Source: Sentinel-1 C-band SAR (AWS Open Data &amp; Planetary Computer, 10m resolution). Contextual radar evidence only.</div>
+                </div>
+              </details>
+
+
+              <!-- 8. EARLY WARNING OUTLOOK -->
+              <div class="outlook-dense-box" id="wlOutlookBox">
+                <div class="dense-row">
+                  <span class="d-label">8. Future Outlook:</span>
+                  <span id="wlOutlookBadge" class="badge-pill badge-neutral">--</span>
+                </div>
+                <p id="wlOutlookSummary" class="outlook-summary-text">--</p>
+                <div class="metrics-grid-dense">
+                  <div class="dense-cell"><span class="d-label">Max Rain:</span> <span id="wlMaxHourlyRain" class="d-val">--</span></div>
+                  <div class="dense-cell"><span class="d-label">72h Total:</span> <span id="wlTotalForecast72h" class="d-val">--</span></div>
+                </div>
+                <div class="dense-row" style="margin-top: 4px;">
+                  <span class="d-label">Significant Window:</span>
+                  <span id="wlMostSignificantPeriod" class="d-val">--</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Disaster Management Panel -->
+        <article class="command-panel" id="disasterCard">
+          <div class="panel-header-compact">
+            <div class="panel-title-wrap">
+              <span class="panel-icon icon-disaster">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+                  <line x1="12" y1="9" x2="12" y2="13"/>
+                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+                </svg>
+              </span>
+              <div>
+                <h2 class="panel-heading">Disaster Management</h2>
+                <span class="panel-subheading">20-feature XGBoost multi-hazard</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span id="disasterQualityBadge" class="status-pill status-neutral" style="font-size: 0.65rem;" title="Data Quality Provenance">--</span>
+              <span id="disasterStatusBadge" class="status-pill status-neutral">--</span>
+            </div>
+          </div>
+
+          <div class="panel-scroll-body">
+            <div id="disasterErrorBox" class="card-error" style="display: none;"></div>
+
+            <div id="disasterContent">
+              <!-- 1. Verified Operational Hazard Output -->
+              <div class="disaster-verified-box" id="dVerifiedBox">
+                <div class="verified-header">
+                  <span class="d-label" style="font-weight: 600; color: #e2e8f0;">Verified Operational Status:</span>
+                  <span id="dVerifiedStatusBadge" class="status-pill status-neutral">--</span>
+                </div>
+                <div class="verified-main-row" style="margin-top: 4px; display: flex; align-items: center; gap: 8px;">
+                  <span id="dVerifiedHazardBadge" class="pred-badge badge-neutral">--</span>
+                  <span id="dVerifiedSeverity" class="badge-pill badge-neutral">--</span>
+                </div>
+                <!-- Multiple Concurrent Verified Hazards Container -->
+                <div id="dMultiHazardsContainer" style="display: none; margin-top: 6px; flex-wrap: wrap; gap: 4px;"></div>
+                <!-- Official Government Bulletins & Alerts Container -->
+                <div id="dOfficialAlertsContainer" style="display: none; margin-top: 6px; padding: 6px 8px; border-radius: 4px; background: rgba(239, 68, 68, 0.12); border-left: 3px solid #ef4444; font-size: 0.72rem; color: #fecaca; line-height: 1.35;"></div>
+                <p id="dVerifiedReason" class="verified-reason-text" style="font-size: 0.72rem; color: #94a3b8; line-height: 1.35; margin-top: 5px;">--</p>
+              </div>
+
+              <!-- Verified Hazard Cards (Section 10 Requirement) -->
+              <div class="section-badge-header">Verified Hazard Monitors</div>
+              <div class="hazard-monitor-cards" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                <!-- 1. Wildfire Card -->
+                <div class="hazard-monitor-card" id="cardWildfireMonitor" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(249, 115, 22, 0.25); border-radius: 6px; padding: 6px 10px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.74rem; font-weight: 600; color: #fed7aa; display: flex; align-items: center; gap: 4px;">
+                      🔥 WILDFIRE / FOREST FIRE
+                    </span>
+                    <span id="badgeWildfireStatus" class="status-pill status-neutral" style="font-size: 0.65rem;">SAFE</span>
+                  </div>
+                  <div class="metrics-grid-dense" style="margin-top: 4px; grid-template-columns: repeat(3, 1fr);">
+                    <div class="dense-cell"><span class="d-label">Nearest:</span> <span id="valFireNearest" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">10km / 25km:</span> <span id="valFireCounts" class="d-val">0 / 0</span></div>
+                    <div class="dense-cell"><span class="d-label">Max FRP:</span> <span id="valFireMaxFrp" class="d-val">0 MW</span></div>
+                  </div>
+                  <div id="descWildfireReason" style="font-size: 0.68rem; color: #94a3b8; margin-top: 3px; line-height: 1.25;">No thermal anomalies detected.</div>
+                </div>
+
+                <!-- 2. Avalanche Card -->
+                <div class="hazard-monitor-card" id="cardAvalancheMonitor" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(147, 197, 253, 0.25); border-radius: 6px; padding: 6px 10px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.74rem; font-weight: 600; color: #bfdbfe; display: flex; align-items: center; gap: 4px;">
+                      🏔️ AVALANCHE (SACHET / DGRE)
+                    </span>
+                    <span id="badgeAvalancheStatus" class="status-pill status-neutral" style="font-size: 0.65rem;">SAFE</span>
+                  </div>
+                  <div class="metrics-grid-dense" style="margin-top: 4px; grid-template-columns: repeat(3, 1fr);">
+                    <div class="dense-cell"><span class="d-label">Elevation:</span> <span id="valAvalancheElev" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Slope:</span> <span id="valAvalancheSlope" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">Temp:</span> <span id="valAvalancheTemp" class="d-val">--</span></div>
+                  </div>
+                  <div id="descAvalancheReason" style="font-size: 0.68rem; color: #94a3b8; margin-top: 3px; line-height: 1.25;">No official warning in effect.</div>
+                </div>
+
+                <!-- 3. Flash Flood Card -->
+                <div class="hazard-monitor-card" id="cardFlashFloodMonitor" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 6px; padding: 6px 10px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.74rem; font-weight: 600; color: #bae6fd; display: flex; align-items: center; gap: 4px;">
+                      🌊 FLASH FLOOD / URBAN RUNOFF
+                    </span>
+                    <span id="badgeFlashFloodStatus" class="status-pill status-neutral" style="font-size: 0.65rem;">SAFE</span>
+                  </div>
+                  <div class="metrics-grid-dense" style="margin-top: 4px; grid-template-columns: repeat(3, 1fr);">
+                    <div class="dense-cell"><span class="d-label">Rain 1h / 3h:</span> <span id="valFlashFloodRain" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">WL / Drainage:</span> <span id="valFlashFloodProbs" class="d-val">--</span></div>
+                    <div class="dense-cell"><span class="d-label">SAR Change:</span> <span id="valFlashFloodSar" class="d-val">--</span></div>
+                  </div>
+                  <div id="descFlashFloodReason" style="font-size: 0.68rem; color: #94a3b8; margin-top: 3px; line-height: 1.25;">No flash flood runoff indicated.</div>
+                </div>
+              <!-- Operational Active Alerts & Lifecycle History (Section 15) -->
+              <div class="section-badge-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Active Operational Alerts</span>
+                <span id="activeAlertsCountBadge" class="status-pill status-neutral" style="font-size: 0.65rem;">0 ACTIVE</span>
+              </div>
+              <div id="activeAlertsContainer" class="active-alerts-container" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                <div id="noActiveAlertsBox" style="font-size: 0.72rem; color: #64748b; padding: 6px 8px; background: rgba(15, 23, 42, 0.4); border-radius: 4px; text-align: center;">
+                  No active operational alerts in this jurisdiction.
+                </div>
+                <div id="activeAlertsList" style="display: flex; flex-direction: column; gap: 6px;"></div>
+              </div>
+
+              <!-- Recent Alert Lifecycle Event History (Section 4 & 15) -->
+              <div class="section-badge-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Recent Alert History</span>
+                <span id="alertHistoryCount" style="font-size: 0.65rem; color: #94a3b8; font-weight: normal;">0 events</span>
+              </div>
+              <div id="alertHistoryTimeline" class="alert-history-timeline" style="max-height: 140px; overflow-y: auto; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 6px; padding: 6px; font-size: 0.70rem; display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px;">
+                <div style="color: #64748b; text-align: center; padding: 4px;">No recent alert events logged.</div>
+              </div>
+
+              <!-- 2. Raw ML Model Signal (20-feature XGBoost) -->
+              <div class="section-badge-header">Raw ML Signal (XGBoost Classifier)</div>
+              <div class="compact-pred-grid">
+                <div class="pred-tile">
+                  <span class="tile-label">Raw ML Predicted Class</span>
+                  <span id="dClass" class="pred-badge badge-neutral">--</span>
+                </div>
+                <div class="pred-tile">
+                  <span class="tile-label">Model Confidence</span>
+                  <span id="dConfidence" class="pred-conf">--</span>
+                </div>
+              </div>
+
+              <!-- 3. Live Telemetry & Seismic Evidence -->
+              <div class="section-badge-header">Live Telemetry &amp; Seismic Evidence</div>
+              <div class="metrics-grid-dense">
+                <div class="dense-cell"><span class="d-label">Nearest Quake:</span> <span id="dNearestQuakeDist" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Quake Age:</span> <span id="dNearestQuakeAge" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Max Quake:</span> <span id="dMaxQuakeMag" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Seismic Status:</span> <span id="dSeismicStatus" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">River Flood:</span> <span id="dRiverDischarge" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Tsunami:</span> <span id="dTsunamiFlag" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Cyclone:</span> <span id="dCycloneFlag" class="d-val">--</span></div>
+              </div>
+
+              <!-- 4. Historical & Recent Multi-Window Context -->
+              <div class="section-badge-header">Historical &amp; Recent Context</div>
+              <div class="metrics-grid-dense">
+                <div class="dense-cell"><span class="d-label">24h Quakes:</span> <span id="dQuakes24h" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">7d Quakes:</span> <span id="dQuakes7d" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">30d Quakes:</span> <span id="dQuakes30d" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">90d Quakes:</span> <span id="dQuakes90d" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">7d Peak Discharge:</span> <span id="dPeakDischarge7d" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Discharge Trend:</span> <span id="dDischargeTrend" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">7d Rain:</span> <span id="dRain7d" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Drought Status:</span> <span id="dDroughtAnomaly" class="d-val">--</span></div>
+              </div>
+
+              <!-- 5. Raw ML Class Probabilities (Technical Intelligence) -->
+              <div id="disasterProbabilitiesBox" class="probabilities-compact" style="display: none; margin-top: 6px;">
+                <span class="d-label">Raw ML Class Probabilities:</span>
+                <div id="dProbList" class="prob-list-dense"></div>
+              </div>
+
+              <!-- 6. Engineered Hazard Indicators -->
+              <div class="section-badge-header">Engineered Indicators</div>
+              <div class="metrics-grid-dense">
+                <div class="dense-cell"><span class="d-label">Wind-Pressure Shear:</span> <span id="dShear" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Saturation Rate:</span> <span id="dSaturation" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Thermal Particulate:</span> <span id="dThermal" class="d-val">--</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </aside>
+
+      <!-- =====================================================================
+           CENTER COLUMN (~56% - DOMINANT): INTERACTIVE INDIA MAP
+           ===================================================================== -->
+      <section class="column-center-map" aria-label="Interactive India Multi-Risk Map">
+        <div class="map-wrapper" id="mapWrapper">
+          <!-- Leaflet Map Container -->
+          <div id="mapContainer" class="map-viewport" role="region" aria-label="India Geospatial Risk Map"></div>
+
+          <!-- Hierarchical Navigation Toolbar (Top Left) -->
+          <div class="map-hierarchy-nav" id="mapHierarchyNav" role="toolbar" aria-label="Pan-India Hierarchical Navigation">
+            <div class="hierarchy-nav-row">
+              <div class="view-level-btns" role="radiogroup" aria-label="View Level Selection">
+                <button id="viewBtnIndia" class="view-btn active" type="button" title="National India Summary View">🇮🇳 India</button>
+                <button id="viewBtnState" class="view-btn" type="button" title="State Summary View">🏛️ State</button>
+                <button id="viewBtnDistrict" class="view-btn" type="button" title="District Context View">📍 District</button>
+                <button id="viewBtnGrid" class="view-btn" type="button" title="Local ML Risk Grid (250m/500m/1000m)">🗺️ Local Grid</button>
+              </div>
+            </div>
+
+            <!-- Dynamic State / District Dropdown Selectors -->
+            <div class="hierarchy-selectors-row" id="hierarchySelectorsRow">
+              <select id="navStateSelect" class="hierarchy-select" title="Select State / UT" aria-label="Select State">
+                <option value="">Select State / UT...</option>
+              </select>
+              <select id="navDistrictSelect" class="hierarchy-select" title="Select District" aria-label="Select District" disabled>
+                <option value="">Select District...</option>
+              </select>
+              <select id="navGridResolution" class="hierarchy-select grid-size-select" title="Grid Cell Resolution">
+                <option value="500" selected>500m Grid</option>
+                <option value="250">250m Grid</option>
+                <option value="1000">1000m Grid</option>
+              </select>
+              <button id="btnGenerateGrid" class="btn-generate-grid" type="button" title="Run Batch ML Grid Analysis across ROI">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span>Run Grid ML</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Floating Layer Control UI (Top Right) -->
+          <div class="floating-layer-controls" id="mapLayerControls" role="group" aria-label="Map Layer Controls">
+            <div class="layer-control-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+              <span>Map Layers</span>
+            </div>
+            <div class="layer-toggles-list">
+              <!-- Real Map Layers per Specification -->
+              <label class="layer-toggle-item active-layer" title="Waterlogging Risk ML Grid overlay (trained 30-feature Random Forest)">
+                <input type="checkbox" id="layerToggleWlGrid" checked>
+                <span class="toggle-name">Waterlogging Risk Grid</span>
+                <span class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" title="Drainage Risk ML Grid overlay (trained 6-feature Random Forest)">
+                <input type="checkbox" id="layerToggleDrainGrid" checked>
+                <span class="toggle-name">Drainage Risk Grid</span>
+                <span class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" title="Combined Waterlogging & Drainage Hotspots">
+                <input type="checkbox" id="layerToggleHotspots" checked>
+                <span class="toggle-name">Combined Hotspots</span>
+                <span class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" title="OpenStreetMap Live Drainage Network">
+                <input type="checkbox" id="layerToggleDrainage" checked>
+                <span class="toggle-name">OSM Drainage Network</span>
+                <span class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" id="layerItemSatellite" title="Sentinel-1 SAR Surface Water Backscatter (10m RTC)">
+                <input type="checkbox" id="layerToggleSatellite" checked>
+                <span class="toggle-name">Sentinel-1 SAR</span>
+                <span id="layerBadgeSatellite" class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" id="layerItemSentinel2" title="Sentinel-2 L2A Optical Surface Observation (NDVI/NDBI)">
+                <input type="checkbox" id="layerToggleSentinel2" checked>
+                <span class="toggle-name">Sentinel-2 Optical</span>
+                <span id="layerBadgeSentinel2" class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" id="layerItemRainfall" title="Spatial Rainfall (Open-Meteo Recent Hourly Model Data)">
+                <input type="checkbox" id="layerToggleRainfall" checked>
+                <span class="toggle-name">Spatial Rainfall</span>
+                <span id="layerBadgeRainfall" class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" title="Live Seismic Epicenters & GDACS Disaster Feeds">
+                <input type="checkbox" id="layerToggleDisaster" checked>
+                <span class="toggle-name">Disaster Events</span>
+                <span class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" id="layerItemFireHotspots" title="NASA FIRMS VIIRS Active Fire Hotspots">
+                <input type="checkbox" id="layerToggleFireHotspots" checked>
+                <span class="toggle-name">Active Wildfires</span>
+                <span id="layerBadgeFireHotspots" class="layer-badge-active">ACTIVE</span>
+              </label>
+
+              <label class="layer-toggle-item active-layer" id="layerItemActiveAlerts" title="Operational Disaster Alerts & Warnings">
+                <input type="checkbox" id="layerToggleActiveAlerts" checked>
+                <span class="toggle-name">Active Alerts</span>
+                <span id="layerBadgeActiveAlerts" class="layer-badge-active">ACTIVE</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Dynamic Legend (Bottom Left) -->
+          <div class="floating-legend" id="mapLegend" role="region" aria-label="Dynamic Map Legend">
+            <div class="legend-header">Map Legend</div>
+            <div class="legend-content" id="legendContent">
+              <!-- Dynamic entries rendered by JS based on active layers -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ===================================================================
+             PAN-INDIA SPATIAL RISK & HOTSPOT SUMMARY PANEL (Directly Below Map)
+             =================================================================== -->
+        <div class="spatial-risk-summary-card" id="spatialSummaryCard">
+          <div class="spatial-summary-header">
+            <div class="summary-title-wrap">
+              <span class="spatial-icon">🗺️</span>
+              <div>
+                <div class="spatial-main-title">
+                  <span id="spatialRegionTitle">India Hierarchical Spatial Risk</span>
+                  <span id="activeViewBadge" class="badge-pill badge-primary">INDIA VIEW</span>
+                </div>
+                <div class="spatial-sub-title" id="spatialSubTitle">National state-level summary. Select a state or search any location to generate detailed ML risk grids.</div>
+              </div>
+            </div>
+            <div class="spatial-header-meta">
+              <span id="spatialCellCountBadge" class="meta-pill">36 States/UTs</span>
+              <span id="spatialDataQualityBadge" class="badge-pill badge-safe">FULL_DATA</span>
+            </div>
+          </div>
+
+          <!-- Grid Analytics Metrics Section -->
+          <div class="spatial-metrics-grid" id="spatialMetricsGrid">
+            <!-- 1. Waterlogging Risk Distribution -->
+            <div class="spatial-metric-box">
+              <div class="metric-box-title">Waterlogging Risk Distribution</div>
+              <div class="risk-dist-bars">
+                <div class="dist-stat-row">
+                  <span class="dist-label"><span class="dot-green"></span> Low</span>
+                  <strong id="wlDistLow">--%</strong>
+                </div>
+                <div class="dist-stat-row">
+                  <span class="dist-label"><span class="dot-amber"></span> Moderate</span>
+                  <strong id="wlDistMod">--%</strong>
+                </div>
+                <div class="dist-stat-row">
+                  <span class="dist-label"><span class="dot-orange"></span> High</span>
+                  <strong id="wlDistHigh">--%</strong>
+                </div>
+                <div class="dist-stat-row">
+                  <span class="dist-label"><span class="dot-red"></span> Critical</span>
+                  <strong id="wlDistCrit">--%</strong>
+                </div>
+              </div>
+              <div class="dist-bar-track">
+                <div id="wlBarLow" class="dist-segment seg-low" style="width: 100%;"></div>
+                <div id="wlBarMod" class="dist-segment seg-mod" style="width: 0%;"></div>
+                <div id="wlBarHigh" class="dist-segment seg-high" style="width: 0%;"></div>
+                <div id="wlBarCrit" class="dist-segment seg-crit" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <!-- 2. Drainage Risk Distribution -->
+            <div class="spatial-metric-box">
+              <div class="metric-box-title">Drainage Risk Distribution</div>
+              <div class="risk-dist-bars">
+                <div class="dist-stat-row">
+                  <span class="dist-label"><span class="dot-green"></span> Low</span>
+                  <strong id="drDistLow">--%</strong>
+                </div>
+                <div class="dist-stat-row">
+                  <span class="dist-label"><span class="dot-amber"></span> Moderate</span>
+                  <strong id="drDistMod">--%</strong>
+                </div>
+                <div class="dist-stat-row">
+                  <span class="dist-label"><span class="dot-orange"></span> High</span>
+                  <strong id="drDistHigh">--%</strong>
+                </div>
+                <div class="dist-stat-row">
+                  <span class="dist-label"><span class="dot-red"></span> Critical</span>
+                  <strong id="drDistCrit">--%</strong>
+                </div>
+              </div>
+              <div class="dist-bar-track">
+                <div id="drBarLow" class="dist-segment seg-low" style="width: 100%;"></div>
+                <div id="drBarMod" class="dist-segment seg-mod" style="width: 0%;"></div>
+                <div id="drBarHigh" class="dist-segment seg-high" style="width: 0%;"></div>
+                <div id="drBarCrit" class="dist-segment seg-crit" style="width: 0%;"></div>
+              </div>
+            </div>
+
+            <!-- 3. Combined Hotspots -->
+            <div class="spatial-metric-box hotspot-summary-box">
+              <div class="metric-box-title">Combined Risk Hotspots</div>
+              <div class="hotspot-big-counter">
+                <span id="hotspotCountVal">0</span>
+                <span class="hotspot-unit">Hotspot Cells</span>
+              </div>
+              <div class="hotspot-sub-note" id="hotspotSubNote">
+                Identified from concurrent waterlogging and drainage impedance.
+              </div>
+              <div class="hotspot-potential-line">
+                Potential Monitor Cells: <strong id="potentialCountVal">0</strong>
+              </div>
+            </div>
+
+            <!-- 4. Performance & Provenance -->
+            <div class="spatial-metric-box">
+              <div class="metric-box-title">Inference & Provenance</div>
+              <div class="meta-kv-list">
+                <div class="kv-item"><span>Engine:</span> <strong>Batch Vector ML</strong></div>
+                <div class="kv-item"><span>Resolution:</span> <strong id="metaResolution">500m Grid</strong></div>
+                <div class="kv-item"><span>Inference Time:</span> <strong id="metaInferenceTime">-- ms</strong></div>
+                <div class="kv-item"><span>Total Latency:</span> <strong id="metaTotalLatency">-- ms</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hotspots List Section -->
+          <div class="spatial-hotspots-section" id="hotspotsSection" style="display: none;">
+            <div class="hotspots-section-header">
+              <div class="h-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span>Identified Drainage & Waterlogging Hotspots (Top High-Risk Cells)</span>
+              </div>
+              <span class="hotspots-disclaimer">Contextual risk score; not confirmed flooding.</span>
+            </div>
+            <div class="hotspots-table-container">
+              <table class="hotspots-table">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Grid ID</th>
+                    <th>Coordinates</th>
+                    <th>Waterlogging Prob</th>
+                    <th>Drainage Prob</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="hotspotsTableBody">
+                  <!-- Populated dynamically by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           RIGHT COLUMN (~22%): WEATHER INTELLIGENCE + AGRICULTURE ADVISORY
+           ===================================================================== -->
+      <aside class="column-sidebar column-right">
+        <!-- 1. Weather Intelligence Panel -->
+        <article class="command-panel" id="weatherCard">
+          <div class="panel-header-compact">
+            <div class="panel-title-wrap">
+              <span class="panel-icon icon-weather">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                </svg>
+              </span>
+              <div>
+                <h2 class="panel-heading">Weather Intelligence</h2>
+                <span class="panel-subheading">WeatherGPT 39-feature model</span>
+              </div>
+            </div>
+            <span id="weatherStatusBadge" class="status-pill status-neutral">--</span>
+          </div>
+
+          <div class="panel-scroll-body">
+            <div id="weatherErrorBox" class="card-error" style="display: none;"></div>
+
+            <div id="weatherContent">
+              <!-- Group 1: Core Atmosphere -->
+              <div class="section-badge-header">Core Atmospheric</div>
+              <div class="metrics-grid-dense">
+                <div class="dense-cell"><span class="d-label">Temp:</span> <span id="wTemp" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Apparent:</span> <span id="wApparentTemp" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Humidity:</span> <span id="wHumidity" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Dew Point:</span> <span id="wDewPoint" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Precip:</span> <span id="wPrecip" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Rain:</span> <span id="wRain" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Pressure:</span> <span id="wPressure" class="d-val">--</span></div>
+              </div>
+
+              <!-- Group 2: Wind -->
+              <div class="section-badge-header">Wind Dynamics</div>
+              <div class="metrics-grid-dense">
+                <div class="dense-cell"><span class="d-label">Speed:</span> <span id="wWindSpeed" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Gusts:</span> <span id="wWindGusts" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Direction:</span> <span id="wWindDirection" class="d-val">--</span></div>
+              </div>
+
+              <!-- Group 3: Soil & Radiation -->
+              <div class="section-badge-header">Soil &amp; Solar Radiation</div>
+              <div class="metrics-grid-dense">
+                <div class="dense-cell"><span class="d-label">Soil Moisture:</span> <span id="wSoilMoisture" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Soil Temp:</span> <span id="wSoilTemp" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">VPD:</span> <span id="wVPD" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">ET0:</span> <span id="wET0" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Shortwave:</span> <span id="wShortwaveRad" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">DNI:</span> <span id="wDNI" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Diffuse:</span> <span id="wDiffuseRad" class="d-val">--</span></div>
+                <div class="dense-cell"><span class="d-label">Cloud Cover:</span> <span id="wCloudCover" class="d-val">--</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Agriculture Advisory Panel -->
+        <article class="command-panel" id="agricultureCard">
+          <div class="panel-header-compact">
+            <div class="panel-title-wrap">
+              <span class="panel-icon icon-agri">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22v-9"/>
+                  <path d="M9 10a4 4 0 0 1 8 0c0 4-4 8-8 12"/>
+                  <path d="M15 10a4 4 0 0 0-8 0c0 4 4 8 8 12"/>
+                </svg>
+              </span>
+              <div>
+                <h2 class="panel-heading">Agriculture Advisory</h2>
+                <span class="panel-subheading">35-feature multi-target advisory</span>
+              </div>
+            </div>
+            <span id="agStatusBadge" class="status-pill status-neutral">--</span>
+          </div>
+
+          <div class="panel-scroll-body">
+            <div id="agErrorBox" class="card-error" style="display: none;"></div>
+
+            <div id="agContent">
+              <div class="crop-meta-pill">
+                <span>Crop: <strong id="agCropDisplay">--</strong></span>
+                <span>•</span>
+                <span>Stage: <strong id="agStageDisplay">--</strong></span>
+              </div>
+
+              <!-- 5 Agronomic Target Recommendations -->
+              <div class="section-badge-header">Agronomic Recommendations</div>
+              <div class="agri-targets-dense">
+                <div class="agri-row">
+                  <span class="agri-target-name">Crop Weather Risk:</span>
+                  <span id="agTargetWeatherRisk" class="badge-pill badge-neutral">--</span>
+                </div>
+                <div class="agri-row">
+                  <span class="agri-target-name">Irrigation Requirement:</span>
+                  <span id="agTargetIrrigation" class="badge-pill badge-neutral">--</span>
+                </div>
+                <div class="agri-row">
+                  <span class="agri-target-name">Heat Stress:</span>
+                  <span id="agTargetHeatStress" class="badge-pill badge-neutral">--</span>
+                </div>
+                <div class="agri-row">
+                  <span class="agri-target-name">Waterlogging Impact:</span>
+                  <span id="agTargetWaterlogging" class="badge-pill badge-neutral">--</span>
+                </div>
+                <div class="agri-row">
+                  <span class="agri-target-name">Spraying Suitability:</span>
+                  <span id="agTargetSpraying" class="badge-pill badge-neutral">--</span>
+                </div>
+              </div>
+
+              <!-- Confidence / Class Breakdown -->
+              <div id="agProbabilitiesBox" class="probabilities-compact" style="display: none;">
+                <span class="d-label">Target Confidence Breakdown:</span>
+                <div id="agProbList" class="prob-list-dense"></div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </aside>
+    </div>
+
+    <!-- =========================================================================
+         FULL-WIDTH ALERTS & EARLY WARNING BAR (Directly Below Map Grid)
+         ========================================================================= -->
+    <section class="alerts-bar-panel" id="overallStatusSection" aria-label="Authoritative Multi-Risk Alerts Bar">
+      <div class="alerts-bar-grid">
+        <!-- 1. Overall Risk Badge -->
+        <div class="alert-tile overall-risk-tile">
+          <span class="alert-tile-label">Platform Overall Risk</span>
+          <span id="overallRiskBadge" class="badge-pill badge-neutral">--</span>
+        </div>
+
+        <!-- 2. Waterlogging Warning Status -->
+        <div class="alert-tile">
+          <span class="alert-tile-label">Waterlogging Warning</span>
+          <span id="alertBarWaterlogging" class="alert-val">Normal (&lt; 0.36)</span>
+        </div>
+
+        <!-- 3. Rainfall Outlook Status -->
+        <div class="alert-tile">
+          <span class="alert-tile-label">Rainfall Outlook</span>
+          <span id="alertBarOutlook" class="alert-val">Monitoring forecast</span>
+        </div>
+
+        <!-- 4. Disaster Context Status -->
+        <div class="alert-tile">
+          <span class="alert-tile-label">Disaster Hazard Context</span>
+          <span id="alertBarDisaster" class="alert-val">No active regional alert</span>
+        </div>
+
+        <!-- 5. Agriculture Concern Status -->
+        <div class="alert-tile">
+          <span class="alert-tile-label">Agriculture Concern</span>
+          <span id="alertBarAgri" class="alert-val">Nominal conditions</span>
+        </div>
+
+        <!-- Latency & Health Meta -->
+        <div class="alert-meta-tile">
+          <div class="meta-line">Models: <strong id="summaryModelsCount">-- / 4</strong></div>
+          <div class="meta-line">Latency: <strong id="summaryTotalTime">-- ms</strong></div>
+          <div class="meta-line" id="summaryTimestamp">--</div>
+          <span id="summaryLocation" style="display: none;"></span>
+        </div>
+      </div>
+
+      <!-- System Advisory Banner -->
+      <div id="overallAdvisoryBox" class="advisory-full-banner" style="display: none;">
+        <div class="advisory-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        <div class="advisory-text-wrap">
+          <strong>System Advisory: </strong>
+          <span id="overallAdvisoryText"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         BOTTOM SYSTEM WORKFLOW & TELEMETRY SECTION
+         ========================================================================= -->
+    <section class="system-workflow-panel" id="systemWorkflowSection">
+      <div class="workflow-header">
+        <h2 class="workflow-title">Smart Multi-Risk AI System Workflow</h2>
+        <p class="workflow-subtitle">End-to-End Visual Architecture: Ingestion • Normalization • 4 ML Models • Multi-Risk Synthesis</p>
+      </div>
+
+      <!-- Pipeline Flow Diagram Cards -->
+      <div class="pipeline-flow-grid">
+        <div class="flow-stage-card">
+          <div class="flow-stage-num">01</div>
+          <h3 class="flow-stage-title">Data Ingestion</h3>
+          <p class="flow-stage-desc">Parallel asynchronous fetching from 8 providers (Open-Meteo, OSM, USGS, GDACS).</p>
+        </div>
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-stage-card">
+          <div class="flow-stage-num">02</div>
+          <h3 class="flow-stage-title">Feature Engineering</h3>
+          <p class="flow-stage-desc">124 total features generated (39 Weather, 20 Disaster, 35 Agriculture, 30 Waterlogging).</p>
+        </div>
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-stage-card">
+          <div class="flow-stage-num">03</div>
+          <h3 class="flow-stage-title">4 ML Inference Engines</h3>
+          <p class="flow-stage-desc">WeatherGPT, XGBoost Multi-Hazard, LightGBM Advisory, and Waterlogging Random Forest.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-stage-card">
+          <div class="flow-stage-num">04</div>
+          <h3 class="flow-stage-title">Multi-Risk Synthesis</h3>
+          <p class="flow-stage-desc">Authoritative multi-hazard risk synthesis, early-warning trigger, and action advisory.</p>
+        </div>
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-stage-card">
+          <div class="flow-stage-num">05</div>
+          <h3 class="flow-stage-title">Geospatial UI</h3>
+          <p class="flow-stage-desc">Interactive Leaflet India map, live GeoJSON overlays, alert bar, and side panels.</p>
+        </div>
+      </div>
+
+      <!-- 8 Data Source Cards with Real Statuses -->
+      <div class="sources-status-section">
+        <h3 class="subsection-heading">Data Source Providers (8 Channels)</h3>
+        <div class="data-sources-grid">
+          <div class="source-card status-available">
+            <div class="source-card-header">
+              <span class="source-name">Open-Meteo Weather</span>
+              <span class="status-badge badge-avail">AVAILABLE</span>
+            </div>
+            <p class="source-desc">Hourly 2-day forecast and past 7-day historical atmospheric metrics.</p>
+          </div>
+
+          <div class="source-card status-available">
+            <div class="source-card-header">
+              <span class="source-name">Open-Meteo Terrain DEM</span>
+              <span class="status-badge badge-avail">AVAILABLE</span>
+            </div>
+            <p class="source-desc">13-sample elevation manifest (5 model stencil points + 8 contextual 1km ring points).</p>
+          </div>
+
+          <div class="source-card status-available">
+            <div class="source-card-header">
+              <span class="source-name">Open-Meteo Flood</span>
+              <span class="status-badge badge-avail">AVAILABLE</span>
+            </div>
+            <p class="source-desc">River discharge and hydrological flood observations.</p>
+          </div>
+
+          <div class="source-card status-available">
+            <div class="source-card-header">
+              <span class="source-name">OpenStreetMap / Overpass</span>
+              <span class="status-badge badge-avail">AVAILABLE</span>
+            </div>
+            <p class="source-desc">2km drainage network geometries (river, stream, canal, drain, ditch).</p>
+          </div>
+
+          <div class="source-card status-available">
+            <div class="source-card-header">
+              <span class="source-name">USGS Earthquake</span>
+              <span class="status-badge badge-avail">AVAILABLE</span>
+            </div>
+            <p class="source-desc">30-day regional seismic events and tsunami alert watch feeds.</p>
+          </div>
+
+          <div class="source-card status-available">
+            <div class="source-card-header">
+              <span class="source-name">GDACS Hazard Alerts</span>
+              <span class="status-badge badge-avail">AVAILABLE</span>
+            </div>
+            <p class="source-desc">Global Disaster Alert and Coordination System (active cyclones &amp; volcanoes).</p>
+          </div>
+
+          <div class="source-card status-available" id="sourceCardSpatialRainfall">
+            <div class="source-card-header">
+              <span class="source-name">Open-Meteo Spatial Rainfall</span>
+              <span class="status-badge badge-avail" id="sourceBadgeSpatialRainfall">AVAILABLE</span>
+            </div>
+            <p class="source-desc" id="sourceDescSpatialRainfall">Open-Meteo Recent Hourly Model Data (0.1° spatial grid, Phase E replacement).</p>
+          </div>
+
+          <div class="source-card status-available" id="sourceCardSentinel1Sar">
+            <div class="source-card-header">
+              <span class="source-name">Sentinel-1 SAR Inundation</span>
+              <span class="status-badge badge-avail" id="sourceBadgeSentinel1Sar">AVAILABLE</span>
+            </div>
+            <p class="source-desc" id="sourceDescSentinel1Sar">Planetary Computer Sentinel-1 RTC C-band radar temporal water-change detection (Phase F).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 ML Models Architecture Blocks -->
+      <div class="models-architecture-section">
+        <h3 class="subsection-heading">4 Machine Learning Model Contracts (Preserved &amp; Invariant)</h3>
+        <div class="models-arch-grid">
+          <div class="model-arch-card">
+            <h4 class="model-arch-name">Weather Intelligence</h4>
+            <div class="model-arch-stat">39 Features • WeatherGPT Architecture</div>
+            <p class="model-arch-desc">Predicts micro-climate trends and atmospheric conditions across Indian zones.</p>
+          </div>
+
+          <div class="model-arch-card">
+            <h4 class="model-arch-name">Disaster Management</h4>
+            <div class="model-arch-stat">20 Features • XGBoost Multi-Hazard</div>
+            <p class="model-arch-desc">Predicts disaster hazard classification with verified live external observations.</p>
+          </div>
+
+          <div class="model-arch-card">
+            <h4 class="model-arch-name">Agriculture Advisory</h4>
+            <div class="model-arch-stat">35 Features • Multi-Target LightGBM</div>
+            <p class="model-arch-desc">5 simultaneous agronomic targets: Weather Risk, Irrigation, Heat Stress, WL, Spraying.</p>
+          </div>
+
+          <div class="model-arch-card">
+            <h4 class="model-arch-name">Waterlogging Hazard</h4>
+            <div class="model-arch-stat">30 Features • Random Forest (Thresh: 0.36)</div>
+            <p class="model-arch-desc">Predicts localized waterlogging probability; triggers alert at strictly &ge; 0.36.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Waterlogging Special Workflow (What Happened? -> Current Risk -> What May Happen?) -->
+      <div class="waterlogging-workflow-section">
+        <h3 class="subsection-heading">Waterlogging Hazard 3-Stage Temporal Architecture</h3>
+        <div class="wl-3stage-grid">
+          <div class="wl-stage-box stage-past">
+            <div class="wl-stage-badge">WHAT HAPPENED?</div>
+            <h4 class="wl-stage-title">Spatial Rainfall &amp; Water History</h4>
+            <p class="wl-stage-text">Open-Meteo Recent Hourly Model Data 0.1° spatial grid &amp; historical precipitation context.</p>
+          </div>
+
+          <div class="wl-stage-box stage-present">
+            <div class="wl-stage-badge">CURRENT RISK</div>
+            <h4 class="wl-stage-title">Random Forest (0.36 Threshold)</h4>
+            <p class="wl-stage-text">Evaluates recent 7-day rainfall + model terrain + soil moisture &rarr; Authoritative positive probability and risk level.</p>
+          </div>
+
+          <div class="wl-stage-box stage-future">
+            <div class="wl-stage-badge">WHAT MAY HAPPEN?</div>
+            <h4 class="wl-stage-title">Multi-Window Forecast &amp; Outlook</h4>
+            <p class="wl-stage-text">Evaluates 72-hour forecast rainfall accumulation &rarr; Deterministic future outlook, most significant window, and suggested action.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Telemetry Accordions -->
+      <div class="telemetry-accordions-group">
+        <details class="accordion-panel" id="sourcesAccordion">
+          <summary class="accordion-header">
+            <div class="accordion-title-group">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+              <span class="accordion-title">Data Providers &amp; Cache Telemetry</span>
+            </div>
+            <span class="accordion-summary-time" id="summaryProviderTime">Fetch Time: -- ms</span>
+          </summary>
+          <div class="accordion-body">
+            <div class="table-responsive">
+              <table class="telemetry-table">
+                <thead>
+                  <tr>
+                    <th>Data Provider</th>
+                    <th>Fetch Latency</th>
+                    <th>Cache Status</th>
+                    <th>HTTP Requests</th>
+                  </tr>
+                </thead>
+                <tbody id="providerTelemetryBody">
+                  <tr><td colspan="4" class="text-center">Run an analysis to inspect provider telemetry.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+
+        <details class="accordion-panel" id="performanceAccordion">
+          <summary class="accordion-header">
+            <div class="accordion-title-group">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span class="accordion-title">Model Execution Latency Breakdown</span>
+            </div>
+            <span class="accordion-summary-time" id="summaryTotalExecutionTime">Total: -- ms</span>
+          </summary>
+          <div class="accordion-body">
+            <div class="table-responsive">
+              <table class="telemetry-table">
+                <thead>
+                  <tr>
+                    <th>Module</th>
+                    <th>Network Time*</th>
+                    <th>Feature Build</th>
+                    <th>Inference</th>
+                    <th>Module Total</th>
+                  </tr>
+                </thead>
+                <tbody id="modulePerformanceBody">
+                  <tr><td colspan="5" class="text-center">Run an analysis to view performance breakdown.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="telemetry-note">*Note: Module network time is 0.0 ms because all providers are pre-fetched concurrently at the unified request boundary.</p>
+          </div>
+        </details>
+      </div>
     </section>
   </main>
 
+  <footer class="app-footer">
+    <div class="footer-container">
+      <span>Smart India-Wide Multi-Risk AI Platform • Powered by Open-Meteo, OSM, USGS, GDACS &amp; Machine Learning</span>
+      <span class="footer-copy">&copy; 2026 Live Multi-Risk Platform</span>
+    </div>
+  </footer>
+
+  <!-- Leaflet.js 1.9.4 Script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="/static/js/app.js"></script>
 </body>
 </html>

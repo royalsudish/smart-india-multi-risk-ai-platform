@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Optional, Dict, Any, List
 import json
 import math
 import numpy as np
@@ -7,7 +8,7 @@ import joblib
 
 ROOT = Path(__file__).resolve().parents[2]
 MODEL_ROOT = ROOT / "models"
-MODEL_NAMES = ["weather", "agriculture", "waterlogging", "disaster"]
+MODEL_NAMES = ["weather", "agriculture", "waterlogging", "disaster", "drainage"]
 
 def _python(v):
     if isinstance(v, np.generic):
@@ -35,6 +36,10 @@ class ModelSlot:
     def path(self):
         artifact = self.metadata.get("artifact")
         return self.folder / artifact if artifact else None
+
+    @property
+    def is_loaded(self):
+        return self.obj is not None
 
     def ensure_loaded(self):
         if self._loaded:
@@ -341,9 +346,43 @@ class ModelSlot:
 
         return self._generic_predict(obj, features)
 
+    def predict_batch(self, features_df):
+        self.ensure_loaded()
+        if self.obj is None:
+            raise RuntimeError(self.error or "Model did not load")
+
+        obj = self.obj
+        names = self.metadata.get("features") or list(getattr(obj, "feature_names_in_", []))
+        if not names:
+            raise ValueError(f"Feature order is unknown for model {self.name}")
+
+        missing = [x for x in names if x not in features_df.columns]
+        if missing:
+            raise ValueError(f"Missing features in batch for {self.name}: " + ", ".join(missing))
+
+        X = features_df[names]
+        preds = obj.predict(X)
+        out = {
+            "predictions": [_python(p) for p in preds],
+            "used_features": names,
+            "row_count": len(X),
+        }
+
+        if hasattr(obj, "predict_proba"):
+            probs = obj.predict_proba(X)
+            out["positive_probabilities"] = [
+                float(p[1]) if len(p) > 1 else float(p[0])
+                for p in probs
+            ]
+
+        return out
+
 class ModelRegistry:
     def __init__(self):
         self.slots = {name: ModelSlot(name) for name in MODEL_NAMES}
+
+    def get(self, name: str) -> Optional[ModelSlot]:
+        return self.slots.get(name)
 
     def status(self, try_load=False):
         if try_load:
@@ -359,5 +398,10 @@ class ModelRegistry:
         if name not in self.slots:
             raise KeyError(name)
         return self.slots[name].predict(features)
+
+    def predict_batch(self, name, features_df):
+        if name not in self.slots:
+            raise KeyError(name)
+        return self.slots[name].predict_batch(features_df)
 
 registry = ModelRegistry()

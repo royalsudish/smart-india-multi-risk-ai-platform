@@ -50,18 +50,36 @@ def risk_label(probability, threshold):
     return "HIGH"
 
 
-def predict_live(lat, lon, state="LIVE", district="LIVE"):
+import time
+
+
+def predict_live(lat, lon, state="LIVE", district="LIVE", precomputed_sources=None):
+    t_start = time.perf_counter()
+
+    raw_hourly = None
+    raw_terrain = None
+    if precomputed_sources:
+        raw_hourly = precomputed_sources.get("waterlogging_forecast") or precomputed_sources.get("waterlogging")
+        raw_terrain = precomputed_sources.get("terrain")
+
+    t_fb_start = time.perf_counter()
     built = build_live_features(
         float(lat),
         float(lon),
         state=state,
         district=district,
+        raw_hourly_forecast=raw_hourly,
+        raw_terrain=raw_terrain,
     )
+    feature_build_ms = round((time.perf_counter() - t_fb_start) * 1000, 2)
+    network_ms = 0.0 if (raw_hourly is not None and raw_terrain is not None) else feature_build_ms
 
+    t_inf_start = time.perf_counter()
     result = registry.predict(
         "waterlogging",
         built["features"],
     )
+    inference_ms = round((time.perf_counter() - t_inf_start) * 1000, 2)
 
     probs = result.get("probabilities")
     positive_probability = None
@@ -86,7 +104,22 @@ def predict_live(lat, lon, state="LIVE", district="LIVE"):
             threshold,
         )
 
+    # Attach Phase A rainfall transparency & outlook structures
+    result["recent_rainfall"] = built.get("recent_rainfall")
+    result["forecast_rainfall"] = built.get("forecast_rainfall")
+    result["future_outlook"] = built.get("future_outlook")
+    result["analysis_time_ist"] = built.get("analysis_time_ist")
+    result["terrain"] = built.get("terrain")
+
+    total_ms = round((time.perf_counter() - t_start) * 1000, 2)
+
     return {
         "input": built,
         "result": result,
+        "timings": {
+            "network_ms": network_ms,
+            "feature_build_ms": feature_build_ms,
+            "inference_ms": inference_ms,
+            "total_ms": total_ms,
+        },
     }
